@@ -1,0 +1,11 @@
+// @import '';
+
+.background {
+    height: 100vh;
+    overflow: hidden;
+    background: url('../public/auth/background.jpg') no-repeat center / cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
