@@ -6,7 +6,7 @@ import Providers from '../redux/Providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-    title: 'Try cook',
+    title: 'Try & Taste',
     description: 'Share recipe and try thers recipe',
 };
 

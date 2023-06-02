@@ -1,6 +1,6 @@
 function Input({ label, ...props }) {
     return (
-        <div className="mb-[40px] w-full px-1">
+        <div className="mb-[20px] md:mb-[40px] w-full px-1">
             <label htmlFor={label} className="text-[16px] text-white/80 mb-[14px]">
                 {label}
             </label>

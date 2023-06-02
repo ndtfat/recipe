@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 
-import { Input } from '@/components';
+import { Input } from '@/components/common';
 import { authActions } from '@/redux/slices/authSlice';
 import requests from '@/services/requests';
 
@@ -44,10 +44,10 @@ function Auth({ params }) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="z-10 w-[450px] p-[40px] bg-white/30 backdrop-blur-md flex flex-col justify-center rounded-md text-white"
+            className="z-10 w-2/3 max-w-[450px] p-[40px] bg-white/30 backdrop-blur-md flex flex-col justify-center rounded-md text-white"
         >
             <header>
-                <h1 className="inline-block text-[50px] font-medium mb-[40px] border-b-4 border-white">
+                <h1 className="inline-block text-[36px] md:text-[50px] font-medium mb-[40px] border-b-4 border-white">
                     {form === 'login' ? 'Sign in' : 'Sign up'}
                 </h1>
             </header>
@@ -120,7 +120,7 @@ function Auth({ params }) {
             <Link
                 onClick={() => dispatch(authActions.deleteMessage())}
                 href={form === 'login' ? '/auth/register' : 'auth/login'}
-                className="duration-300 text-center mt-[20px] underline cursor-pointer hover:text-[#1a1a1a]"
+                className="duration-300 text-center text-[14px] md:text-[16px] mt-[20px] underline cursor-pointer hover:text-[#1a1a1a]"
             >
                 {form === 'login' ? 'Do not have account? Sign up' : 'Have account? Sign in'}
             </Link>

@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { authActions } from '@/redux/slices/authSlice';
 
-SERVER_URL = 'http://localhost:5000';
-
 const requests = {
     async register(payload, router, dispatch) {
         dispatch(authActions.registerStart());
         try {
-            const res = await axios.post(SERVER_URL + '/auth/register', payload);
+            const res = await axios.post(process.env.SERVER_URL + '/auth/register', payload);
             const data = res.data;
 
             if (data.status === 200) {
@@ -22,7 +20,7 @@ const requests = {
     async login(payload, router, dispatch) {
         dispatch(authActions.loginStart());
         try {
-            const res = await axios.post(SERVER_URL + '/auth/login', payload, {
+            const res = await axios.post(process.env.SERVER_URL + '/auth/login', payload, {
                 withCredentials: true,
             });
             const data = res.data;
@@ -40,7 +38,7 @@ const requests = {
     async logout(router, dispatch) {
         dispatch(authActions.logoutStart());
         try {
-            const res = await axios.post(SERVER_URL + '/auth/logout', {
+            const res = await axios.post(process.env.SERVER_URL + '/auth/logout', {
                 withCredentials: true,
             });
             const data = res.data;
