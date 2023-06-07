@@ -20,7 +20,7 @@ function NavbarIcon() {
                 {isOpen ? <GrClose /> : <FiMenu />}
             </div>
 
-            <span className="fixed top-[70px] left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.4)]"></span>
+            {isOpen && <span className="fixed top-[70px] left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.4)]"></span>}
 
             {isOpen && (
                 <div className="fixed top-[70px] h-full left-0 w-[300px] flex flex-col bg-white text-black text-[16px] font-medium ">

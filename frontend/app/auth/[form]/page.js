@@ -7,13 +7,13 @@ import Link from 'next/link';
 
 import { Input } from '@/components/common';
 import { authActions } from '@/redux/slices/authSlice';
-import requests from '@/services/requests';
+import authRequest from '@/requests/authRequest';
 
 function Auth({ params }) {
     const form = params.form;
     const authState = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
     const router = useRouter();
+    const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
         username: '',
         password: '',
@@ -26,11 +26,11 @@ function Auth({ params }) {
         e.preventDefault();
 
         if (form === 'register') {
-            await requests.register(inputs, router, dispatch);
+            await authRequest.register(inputs, router, dispatch);
         }
 
         if (form === 'login') {
-            await requests.login(
+            await authRequest.login(
                 {
                     username: inputs.username,
                     password: inputs.password,
@@ -53,17 +53,21 @@ function Auth({ params }) {
             </header>
 
             {form === 'register' && (
-                <div className="flex justify-between first:mr-3">
+                <div className="flex justify-between mb-[20px]">
+                    <div className="mr-3">
+                        <Input
+                            typeInput={1}
+                            label={'First name'}
+                            value={inputs.last_name}
+                            onChange={(e) =>
+                                setInputs((prev) => {
+                                    return { ...prev, last_name: e.target.value };
+                                })
+                            }
+                        />
+                    </div>
                     <Input
-                        label={'First name'}
-                        value={inputs.last_name}
-                        onChange={(e) =>
-                            setInputs((prev) => {
-                                return { ...prev, last_name: e.target.value };
-                            })
-                        }
-                    />
-                    <Input
+                        typeInput={1}
                         label={'Last name'}
                         value={inputs.first_name}
                         onChange={(e) =>
@@ -76,6 +80,8 @@ function Auth({ params }) {
             )}
 
             <Input
+                mb={40}
+                typeInput={1}
                 label={'Username'}
                 value={inputs.username}
                 onChange={(e) =>
@@ -85,6 +91,8 @@ function Auth({ params }) {
                 }
             />
             <Input
+                mb={40}
+                typeInput={1}
                 label={'Password'}
                 type="password"
                 value={inputs.password}
@@ -96,6 +104,8 @@ function Auth({ params }) {
             />
             {form === 'register' && (
                 <Input
+                    mb={40}
+                    typeInput={1}
                     label={'Email'}
                     type="email"
                     value={inputs.email}

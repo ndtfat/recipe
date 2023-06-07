@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { authActions } from '@/redux/slices/authSlice';
 
-const requests = {
+export default {
     async register(payload, router, dispatch) {
         dispatch(authActions.registerStart());
         try {
@@ -31,24 +31,45 @@ const requests = {
             }
         } catch (err) {
             console.log(err);
-            dispatch(authActions.loginFailure({ message: err.response.data.message }));
+            dispatch(authActions.loginFailure(err.response.data.message));
         }
     },
 
-    async logout(router, dispatch) {
+    async logout(accessToken, router, dispatch, axiosJWT) {
         dispatch(authActions.logoutStart());
         try {
-            const res = await axios.post(process.env.SERVER_URL + '/auth/logout', {
-                withCredentials: true,
-            });
-            const data = res.data;
+            await axiosJWT.post(
+                process.env.SERVER_URL + '/auth/logout',
+                {},
+                {
+                    headers: { token: 'Bearer ' + accessToken },
+                },
+            );
 
             dispatch(authActions.logoutSuccess());
             router.push('/auth/login');
         } catch (err) {
             console.log(err);
+            // dispatch(authActions.logoutFailure(err.response.data.message));
+        }
+    },
+
+    async refreshToken(dispatch) {
+        dispatch(authActions.refreshStart());
+        try {
+            const res = await axios.post(
+                'http://localhost:5000/auth/refresh-access-token',
+                {},
+                {
+                    withCredentials: true,
+                },
+            );
+
+            dispatch(authActions.refreshSuccess(res.data.data));
+            return res.data;
+        } catch (err) {
+            console.log(err);
+            dispatch(authActions.refreshFailure(err.response.data.message));
         }
     },
 };
-
-export default requests;

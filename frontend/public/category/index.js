@@ -40,4 +40,12 @@ export default [
         background: drink,
         href: '/recipes/drink',
     },
+
+    {
+        param: 'other',
+        title: 'Other',
+        desc: 'Many type of amazing food. Pick one and try it now.',
+        background: drink,
+        href: '/recipes/other',
+    },
 ];

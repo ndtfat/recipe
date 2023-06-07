@@ -38,7 +38,7 @@ const authSlice = createSlice({
             state.error = true;
             state.userData = null;
             state.isFetching = false;
-            state.message = action.payload.message;
+            state.message = action.payload;
         },
         logoutStart(state) {
             state.isFetching = true;
@@ -47,6 +47,25 @@ const authSlice = createSlice({
             state.error = false;
             state.isFetching = false;
             state.userData = null;
+        },
+        logoutFailure(state, action) {
+            state.error = true;
+            state.isFetching = false;
+            state.message = action.payload;
+        },
+        refreshStart(state) {
+            state.isFetching = true;
+        },
+        refreshSuccess(state, action) {
+            state.isFetching = false;
+            state.userData = action.payload;
+            state.error = false;
+            state.message = '';
+        },
+        refreshFailure(state, action) {
+            state.isFetching = false;
+            state.error = true;
+            state.message = action.payload;
         },
     },
 });

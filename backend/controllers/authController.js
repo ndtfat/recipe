@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 let refreshTokenStore = [];
 
 const generateAccessToken = (data) => {
-    return jwt.sign(data, process.env.ACCESS_TOKEN_KEY, { expiresIn: '60s' });
+    return jwt.sign(data, process.env.ACCESS_TOKEN_KEY, { expiresIn: '10s' });
 };
 
 const generateRefreshToken = (data) => {
@@ -75,11 +75,14 @@ class authController {
         res.clearCookie('refresh_token');
         refreshTokenStore.filter((token) => token !== req.cookies.refresh_token);
 
+        console.log('user logout');
         return res.status(200).json({ status: 200, message: 'Logout successful' });
     }
 
     // [POST] /auth/refresh-access-token
     async refreshAccessToken(req, res) {
+        console.log('refresh token');
+
         const refreshToken = req.cookies.refresh_token;
         if (!refreshToken) return res.status(403).json({ status: 403, message: "You're not log in" });
 

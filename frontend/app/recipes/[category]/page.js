@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import categories from '@/public/category';
@@ -7,6 +9,8 @@ function Category({ params }) {
     return (
         <>
             <Image
+                placeholder="category"
+                blurDataURL="@/public/logo.png"
                 alt="category"
                 src={category.background}
                 className="w-full h-[350px] object-cover backdrop-brightness-50"

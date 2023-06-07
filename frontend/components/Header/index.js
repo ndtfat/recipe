@@ -14,8 +14,8 @@ function Header() {
                 <NavbarIcon />
 
                 <Link href="/" className="flex items-center cursor-pointer">
-                    <Image alt="logo" src={logo} height={50} className="lg:mr-3" />
-                    <Image alt="logo" src={sloganBlack} height={35} className="hidden lg:block" />
+                    <Image alt="logo" src={logo} height={50} priority className="lg:mr-3" />
+                    <Image alt="logo" src={sloganBlack} height={35} priority className="hidden lg:block" />
                 </Link>
 
                 <AccountMenu />

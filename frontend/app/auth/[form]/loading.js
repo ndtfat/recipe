@@ -1,13 +1,11 @@
-import { Header } from '@/components';
 import { Loader } from '@/components/common';
 
-function Home() {
+function Loading() {
     return (
         <div>
-            <Header />
             <Loader />
         </div>
     );
 }
 
-export default Home;
+export default Loading;
