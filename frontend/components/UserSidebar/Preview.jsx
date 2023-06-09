@@ -7,18 +7,20 @@ import avatar from '@/public/user-default.jpg';
 
 function Preview() {
     const user = useSelector((state) => state.auth.userData);
-    console.log(user);
 
     return (
-        <div className="w-[300px] flex p-[12px] bg-white mb-[2px]">
+        <div className="w-[350px] flex p-[12px] bg-white mb-[2px]">
             <Image alt="avatar" src={avatar} height={100} className="mr-[10px]" />
 
-            <div className="font-bold text-[22px]">
-                <span className="block">Hi,</span>
-                <span className="text-primary">
-                    <span className="first-letter:uppercase">{user?.first_name}</span> {user?.last_name}
-                </span>
-            </div>
+            {user && (
+                <div className="font-bold text-[20px]">
+                    <span>Hi,</span>
+                    <span className="text-primary ml-1">
+                        <span className="first-letter:uppercase">{user.first_name}</span> {user.last_name}
+                    </span>
+                    <span className="block font-normal text-[14px] text-ellipsis overflow-hidden">{user.email}</span>
+                </div>
+            )}
         </div>
     );
 }

@@ -56,6 +56,7 @@ function Auth({ params }) {
                 <div className="flex justify-between mb-[20px]">
                     <div className="mr-3">
                         <Input
+                            required
                             typeInput={1}
                             label={'First name'}
                             value={inputs.last_name}
@@ -67,6 +68,7 @@ function Auth({ params }) {
                         />
                     </div>
                     <Input
+                        required
                         typeInput={1}
                         label={'Last name'}
                         value={inputs.first_name}
@@ -80,6 +82,7 @@ function Auth({ params }) {
             )}
 
             <Input
+                required
                 mb={40}
                 typeInput={1}
                 label={'Username'}
@@ -91,6 +94,7 @@ function Auth({ params }) {
                 }
             />
             <Input
+                required
                 mb={40}
                 typeInput={1}
                 label={'Password'}
@@ -104,6 +108,7 @@ function Auth({ params }) {
             />
             {form === 'register' && (
                 <Input
+                    required
                     mb={40}
                     typeInput={1}
                     label={'Email'}

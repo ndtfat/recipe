@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 
-function Button({ typeBtn = 'default', type = 'button', className = '', children, ...props }) {
+function Button({ typeBtn = 'default', type = 'button', className = '', disable, children, ...props }) {
     const classes = useRef({
         default: 'bg-black hover:bg-primary text-white',
         primary: 'bg-primary outline-2 text-white hover:bg-white hover:outline-primary hover:text-primary',
@@ -14,7 +14,11 @@ function Button({ typeBtn = 'default', type = 'button', className = '', children
             {...props}
             type={type}
             className={
-                'inline-block outline-none duration-300 cursor-pointer ' + className + ' ' + classes.current[typeBtn]
+                'inline-block outline-none duration-300 cursor-pointer' +
+                (disable ? ' opacity-50 pointer-events-none ' : ' ') +
+                className +
+                ' ' +
+                classes.current[typeBtn]
             }
         >
             {children}

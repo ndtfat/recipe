@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const recipeController = require('../controllers/recipeController');
-const verifyLogin = require('../middlewares/verifyLogin');
+const verifyAccessToken = require('../middlewares/verifyAccessToken');
 
-router.post('/add', verifyLogin, recipeController.add);
+router.post('/add', verifyAccessToken, recipeController.add);
 
 module.exports = router;

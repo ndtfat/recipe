@@ -19,8 +19,8 @@ function AccountMenu() {
     const authState = useSelector((state) => state.auth);
     const axiosJWT = createAxiosJWT(authState.userData, dispatch);
 
-    const handleLogout = async () => {
-        await requests.logout(authState.userData?.accessToken, router, dispatch, axiosJWT);
+    const handleLogout = () => {
+        requests.logout(authState.userData?.accessToken, router, dispatch, axiosJWT);
 
         router.push('/auth/login');
     };

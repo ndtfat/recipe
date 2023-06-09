@@ -22,7 +22,6 @@ function Input({ textarea = false, typeInput = 1, label, mb = 20, disable, ...pr
                 <textarea
                     {...props}
                     id={label}
-                    required
                     className={
                         `duration-300 cursor-text w-full outline-none bg-transparent min-h-[80px] select-none ${
                             !label && 'mt-2'
@@ -33,7 +32,6 @@ function Input({ textarea = false, typeInput = 1, label, mb = 20, disable, ...pr
                 <input
                     {...props}
                     id={label}
-                    required
                     className={
                         `duration-300 cursor-text w-full outline-none bg-transparent ${!label && 'mt-2'} ` +
                         types[typeInput].input

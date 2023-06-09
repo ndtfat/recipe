@@ -5,11 +5,11 @@ const bcrypt = require('bcrypt');
 let refreshTokenStore = [];
 
 const generateAccessToken = (data) => {
-    return jwt.sign(data, process.env.ACCESS_TOKEN_KEY, { expiresIn: '10s' });
+    return jwt.sign(data, process.env.ACCESS_TOKEN_KEY, { expiresIn: '15m' });
 };
 
 const generateRefreshToken = (data) => {
-    return jwt.sign(data, process.env.REFRESH_TOKEN_KEY, { expiresIn: '365d' });
+    return jwt.sign(data, process.env.REFRESH_TOKEN_KEY, { expiresIn: '3d' });
 };
 
 const writeCookie = (res, key, value) => {

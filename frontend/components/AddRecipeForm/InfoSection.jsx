@@ -4,7 +4,7 @@ import { memo, useState, useEffect } from 'react';
 import Image from 'next/image';
 
 import { Input } from '../common';
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { ref, getDownloadURL, uploadBytesResumable, deleteObject } from 'firebase/storage';
 import addImage from '@/public/add-recipe/your-photo-here.jpg';
 import actions from './actions';
 import storage from '@/services/firebase';
@@ -16,6 +16,14 @@ function Info({ info, dispatch }) {
 
     const handleSelectedFile = (e) => {
         const file = e.target.files[0];
+
+        if (imageFile) {
+            const deleteFile = ref(storage, `images/${imageFile.name}}`);
+            deleteObject(deleteFile)
+                .then(() => console.log('delete success'))
+                .catch((err) => console.log(err));
+        }
+
         setImageFile(file);
     };
 
@@ -47,6 +55,7 @@ function Info({ info, dispatch }) {
         <div className="flex justify-between items-start">
             <div className="flex-1">
                 <Input
+                    required
                     typeInput={2}
                     label="Recipe Title"
                     placeholder="Give your recipe a title."
@@ -55,6 +64,7 @@ function Info({ info, dispatch }) {
                 />
 
                 <Input
+                    required
                     typeInput={2}
                     label="Type of dish"
                     placeholder="Main dish, healthy, drink,..."
@@ -63,6 +73,7 @@ function Info({ info, dispatch }) {
                 />
 
                 <Input
+                    required
                     textarea
                     typeInput={2}
                     label="Description"
@@ -73,13 +84,13 @@ function Info({ info, dispatch }) {
             </div>
             <div className="ml-[50px]">
                 <Input
+                    required
                     hidden
                     type="file"
                     accept="image/*"
                     label="Photo"
                     typeInput={2}
                     onInput={handleSelectedFile}
-                    // onChange={(e) => console.log(e.target.files[0])}
                 />
 
                 <label htmlFor="Photo">
@@ -92,14 +103,14 @@ function Info({ info, dispatch }) {
                         id="image"
                         className="mt-[-12px] h-[200px] cursor-pointer object-cover"
                     />
-                    <progress
-                        className="progress progress-primary w-[200px]"
-                        value={progress * 100}
-                        max="100"
-                    ></progress>
+                    {progress > 0 && (
+                        <progress
+                            className="progress progress-primary w-[200px]"
+                            value={progress * 100}
+                            max="100"
+                        ></progress>
+                    )}
                 </label>
-
-                {/* <span className="text-[12px] mt-1">Must be at least 960 x 960</span> */}
             </div>
         </div>
     );

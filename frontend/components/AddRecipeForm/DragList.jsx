@@ -68,6 +68,7 @@ function DragList({ textarea = false, placeholder = 'placeholder', list = [], di
                         className="flex items-center mb-[10px]"
                     >
                         <Input
+                            required
                             textarea={textarea}
                             mb={0}
                             typeInput={2}

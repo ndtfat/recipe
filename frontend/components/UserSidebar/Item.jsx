@@ -1,9 +1,12 @@
-function Item({ icon, title, active }) {
+import Link from 'next/link';
+
+function Item({ icon, title, active, ...props }) {
     return (
         <div
-            className={`w-[300px] cursor-pointer flex items-center bg-white px-[14px] py-[10px] mb-[2px] hover:text-primary hover:font-bold border-primary ${
-                active && 'border-l-4'
-            } hover:border-l-4`}
+            {...props}
+            className={`w-[350px] cursor-pointer flex items-center bg-white px-[14px] py-[10px] mb-[2px] hover:opacity-80 ${
+                active ? 'text-primary font-bold border-primary border-l-4' : ''
+            }`}
         >
             {icon && <div className="mr-[10px]">{icon}</div>}
             {title && <div>{title}</div>}
