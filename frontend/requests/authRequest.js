@@ -26,8 +26,8 @@ export default {
             const data = res.data;
 
             if (data.status === 200) {
-                dispatch(authActions.loginSuccess(data.data));
                 router.push('/');
+                dispatch(authActions.loginSuccess(data.data));
             }
         } catch (err) {
             console.log(err);
@@ -38,16 +38,18 @@ export default {
     async logout(accessToken, router, dispatch, axiosJWT) {
         dispatch(authActions.logoutStart());
         try {
-            await axiosJWT.post(
+            const res = await axiosJWT.post(
                 process.env.SERVER_URL + '/auth/logout',
                 {},
-                {
-                    headers: { token: 'Bearer ' + accessToken },
-                },
+                { headers: { token: 'Bearer ' + accessToken } },
             );
 
-            dispatch(authActions.logoutSuccess());
-            router.push('/auth/login');
+            const data = res.data;
+
+            if (data.status === 200) {
+                router.push('/auth/login');
+                dispatch(authActions.loginSuccess(data.data));
+            }
         } catch (err) {
             console.log(err);
             // dispatch(authActions.logoutFailure(err.response.data.message));

@@ -7,7 +7,6 @@ function NoteSection({ note, dispatch }) {
     return (
         <div>
             <Input
-                required
                 label="Title"
                 typeInput={2}
                 placeholder="e.g. Cook's tip"
@@ -15,7 +14,6 @@ function NoteSection({ note, dispatch }) {
                 onChange={(e) => dispatch(actions.setNote({ title: e.target.value }))}
             />
             <Input
-                required
                 label="Note"
                 mb={0}
                 textarea

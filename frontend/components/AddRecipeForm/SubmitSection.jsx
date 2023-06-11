@@ -30,7 +30,7 @@ function SubmitSection({ isPublic, dispatch }) {
                 </label>
             </div>
 
-            <div className="w-full text-right">
+            <div className="w-full text-right mt-3">
                 <Button type="submit" typeBtn="primary" className="text-[20px] px-5 py-3 font-bold mt-[10px]">
                     Submit Recipe
                 </Button>

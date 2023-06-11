@@ -13,7 +13,7 @@ class UserController {
         user.save()
             .then((data) => {
                 const { password, ...otherData } = data;
-                res.status(200).json({ status: 200, message: 'Update success', data: otherData._doc });
+                res.status(200).json({ status: 200, message: 'Update success', data: { ...otherData._doc } });
             })
             .catch((err) => {
                 if (err.name === 'TokenExpiredError')
@@ -41,6 +41,19 @@ class UserController {
                 });
         } else {
             return res.status(403).json({ status: 403, message: 'Invalid password' });
+        }
+    }
+
+    //[GET] /user/:id
+    async getUserInfo(req, res) {
+        console.log('get info: ', req.params.id);
+        try {
+            const user = await UserModel.findById(req.params.id);
+            const { password, saved_recipes, ...otherData } = user._doc;
+
+            res.status(200).json({ status: 200, message: 'Get user_info success', data: otherData });
+        } catch (err) {
+            console.log(err);
         }
     }
 }

@@ -1,9 +1,8 @@
 import block from 'module-clsx';
-
-import styles from '@/styles/loader.module.scss';
+import styles from '@/styles/loaderSpin.module.scss';
 const clsx = block(styles);
 
-function Loader() {
+function LoaderSpin() {
     return (
         <div className="w-full h-full grid place-items-center">
             <div className={clsx('loader')}></div>
@@ -11,4 +10,4 @@ function Loader() {
     );
 }
 
-export default Loader;
+export default LoaderSpin;

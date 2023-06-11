@@ -56,7 +56,7 @@ class authController {
         }
 
         if (isValid) {
-            const { password, ...other } = user._doc;
+            const { password, createdAt, updatedAt, saved_recipes, ...other } = user._doc;
             const accessToken = generateAccessToken(other);
             const refreshToken = generateRefreshToken(other);
 
@@ -81,13 +81,14 @@ class authController {
 
     // [POST] /auth/refresh-access-token
     async refreshAccessToken(req, res) {
-        console.log('refresh token');
-
         const refreshToken = req.cookies.refresh_token;
+        // console.log('refresh token: ', refreshTokenStore.include(refreshToken));
+
         if (!refreshToken) return res.status(403).json({ status: 403, message: "You're not log in" });
 
-        if (!refreshTokenStore.includes(refreshToken))
+        if (!refreshTokenStore.includes(refreshToken)) {
             return res.status(403).json({ status: 403, message: 'Invalid refresh_token' });
+        }
 
         const userData = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY);
         const { exp, iat, ...userPayload } = userData;

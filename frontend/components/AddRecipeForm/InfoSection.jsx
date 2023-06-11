@@ -69,7 +69,7 @@ function Info({ info, dispatch }) {
                     label="Type of dish"
                     placeholder="Main dish, healthy, drink,..."
                     value={info.dishType}
-                    onChange={(e) => dispatch(actions.setDishType(e.target.value))}
+                    onChange={(e) => dispatch(actions.setDishType(e.target.value.toLowerCase()))}
                 />
 
                 <Input
@@ -82,7 +82,7 @@ function Info({ info, dispatch }) {
                     onChange={(e) => dispatch(actions.setDesc(e.target.value))}
                 />
             </div>
-            <div className="ml-[50px]">
+            <div className="ml-[20px] lg:ml-[50px]">
                 <Input
                     required
                     hidden
@@ -98,10 +98,10 @@ function Info({ info, dispatch }) {
                         priority
                         alt="add-your-photo"
                         src={downloadURL}
-                        width={200}
-                        height={200}
+                        // width={200}
+                        // height={200}
                         id="image"
-                        className="mt-[-12px] h-[200px] cursor-pointer object-cover"
+                        className="mt-[-12px] w-[150px] h-[150px] md:h-[200px] md:w-[200px] cursor-pointer object-cover"
                     />
                     {progress > 0 && (
                         <progress

@@ -10,7 +10,7 @@ const authSlice = createSlice({
     },
     reducers: {
         updateUserData(state, action) {
-            state.userData = action.payload;
+            state.userData = { ...action.payload, accessToken: state.userData.accessToken };
         },
         deleteMessage(state) {
             state.message = '';

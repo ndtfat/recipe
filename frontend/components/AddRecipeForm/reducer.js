@@ -47,11 +47,24 @@ export const reducer = (state, action) => {
                 imgURL: action.payload,
             };
         case 'SET_INGREDIENT':
+            const ingredients = action.payload.map((ingredient) => {
+                return {
+                    id: ingredient.id,
+                    value: ingredient.value,
+                };
+            });
+
             return {
                 ...state,
-                ingredients: action.payload,
+                ingredients,
             };
         case 'SET_STEPS':
+            const steps = action.payload.map((step) => {
+                return {
+                    id: step.id,
+                    value: step.value,
+                };
+            });
             return {
                 ...state,
                 steps: action.payload,

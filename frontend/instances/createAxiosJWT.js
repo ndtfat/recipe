@@ -1,8 +1,10 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { useDispatch } from 'react-redux';
+
 import authRequest from '@/requests/authRequest';
 
-export default (user, dispatch) => {
+export default (user, dispatch = useDispatch()) => {
     const axiosJWT = axios.create();
 
     axiosJWT.interceptors.request.use(

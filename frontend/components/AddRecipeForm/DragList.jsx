@@ -79,13 +79,13 @@ function DragList({ textarea = false, placeholder = 'placeholder', list = [], di
 
                         {isReorder ? (
                             <GrDrag
-                                size={26}
+                                size={30}
                                 className="ml-[20px] cursor-grab"
                                 onPointerDown={(e) => controls.start(e)}
                             />
                         ) : (
                             <SlClose
-                                size={26}
+                                size={30}
                                 className="ml-[20px] cursor-pointer"
                                 onClick={() => handleRemove(item.id)}
                             />

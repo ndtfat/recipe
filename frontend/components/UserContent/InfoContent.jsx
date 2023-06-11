@@ -35,9 +35,9 @@ function InfoContent() {
 
     useEffect(() => {
         if (
-            user.first_name !== userInfo.first_name ||
-            user.last_name !== userInfo.last_name ||
-            user.email !== userInfo.email ||
+            user?.first_name !== userInfo?.first_name ||
+            user?.last_name !== userInfo?.last_name ||
+            user?.email !== userInfo?.email ||
             wantCHangePassword
         ) {
             setIsChangeInfo(true);
@@ -49,8 +49,8 @@ function InfoContent() {
     const handleSaveChange = async (e) => {
         e.preventDefault();
 
-        let res = await userRequests.updateUserInfo(userInfo, user.accessToken, dispatch, axiosJWT);
-        if (wantCHangePassword) await userRequests.updatePassword(pw, user.accessToken, axiosJWT);
+        let res = await userRequests.updateUserInfo(userInfo, user?.accessToken, dispatch, axiosJWT);
+        if (wantCHangePassword) await userRequests.updatePassword(pw, user?.accessToken, axiosJWT);
 
         if (res?.status === 200) {
             setResMsg({ isSuccess: true, msg: 'Update success' });
@@ -59,14 +59,14 @@ function InfoContent() {
     };
 
     return (
-        <div className="px-[100px]">
+        <div className="px-[10px] lg:px-[100px]">
             <form onSubmit={handleSaveChange}>
                 <div className="flex">
                     <Input
                         required
                         typeInput={2}
                         label={'First name'}
-                        value={userInfo.first_name}
+                        value={userInfo?.first_name}
                         onChange={(e) => handleChangeInfo(e, 'first_name')}
                     />
                     <span className="inline-block w-8"></span>
@@ -74,7 +74,7 @@ function InfoContent() {
                         required
                         typeInput={2}
                         label={'Last name'}
-                        value={userInfo.last_name}
+                        value={userInfo?.last_name}
                         onChange={(e) => handleChangeInfo(e, 'last_name')}
                     />
                 </div>
@@ -83,7 +83,7 @@ function InfoContent() {
                     required
                     typeInput={2}
                     label="email"
-                    value={userInfo.email}
+                    value={userInfo?.email}
                     onChange={(e) => handleChangeInfo(e, 'email')}
                 />
 

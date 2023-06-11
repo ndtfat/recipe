@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
+    // console.log('verify accessToken: ', req.headers.token);
     const userAccessToken = req.headers.token.split(' ')[1];
 
     if (userAccessToken) {

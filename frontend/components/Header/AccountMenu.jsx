@@ -19,28 +19,27 @@ function AccountMenu() {
     const authState = useSelector((state) => state.auth);
     const axiosJWT = createAxiosJWT(authState.userData, dispatch);
 
-    const handleLogout = () => {
-        requests.logout(authState.userData?.accessToken, router, dispatch, axiosJWT);
-
-        router.push('/auth/login');
+    const handleLogout = async () => {
+        await requests.logout(authState.userData?.accessToken, router, dispatch, axiosJWT);
+        // router.push('/auth/login');
     };
 
     return (
         <>
             {authState.userData ? (
-                <div className="z-20 flex items-end relative group">
-                    <Image
-                        priority
-                        alt="user-avatar"
-                        src={userDefaultAvatar}
-                        height={46}
-                        className="rounded-full cursor-pointer"
-                    />
-                    <span className=" absolute right-0 top-full h-2 w-[170px]"></span>
-
-                    <div className="hidden group-hover:flex absolute top-[40px] right-0 flex-col w-[170px] text-[14px] font-medium [&>*]:cursor-pointer">
+                <div className="dropdown dropdown-bottom dropdown-end z-10 cursor-pointer">
+                    <label tabIndex={0} className="">
+                        <Image
+                            priority
+                            alt="user-avatar"
+                            src={userDefaultAvatar}
+                            height={46}
+                            className="rounded-full cursor-pointer"
+                        />
+                    </label>
+                    <ul tabIndex={0} className="dropdown-content menu w-52">
                         <Link
-                            href="/user"
+                            href={`/user/${authState.userData._id}?content=Personal Info`}
                             className="p-3 bg-slate-600 flex items-center justify-between rounded-t-xl cursor-grab hover:bg-slate-500"
                         >
                             <span>My Account</span> <RiAccountPinCircleFill className="text-[26px]" />
@@ -58,7 +57,7 @@ function AccountMenu() {
                             <span>Log out</span>
                             <FiLogOut className="text-[24px]" />
                         </div>
-                    </div>
+                    </ul>
                 </div>
             ) : (
                 <Link href="/auth/login">

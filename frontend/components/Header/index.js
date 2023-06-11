@@ -10,7 +10,7 @@ import NavbarIcon from './NavbarIcon';
 function Header() {
     return (
         <>
-            <div className="w-full h-[70px] flex justify-between items-center px-[50px] bg-ưhite text-white shadow-md">
+            <div className="w-full h-[70px] flex justify-between items-center px-3 lg:px-[50px] bg-ưhite text-white shadow-md">
                 <NavbarIcon />
 
                 <Link href="/" className="flex items-center cursor-pointer">

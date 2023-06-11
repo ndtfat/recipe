@@ -8,7 +8,7 @@ const UserSchema = new Schema(
         first_name: { type: String, required: true },
         last_name: { type: String, required: true },
         email: { type: String, unique: true, required: true },
-        saved_recipe: { type: Array, default: [] },
+        saved_recipes: { type: Array, default: [], ref: 'recipes' },
         isAdmin: { type: Boolean, default: false },
     },
     {

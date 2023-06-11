@@ -2,6 +2,7 @@
 
 import { useReducer } from 'react';
 import { AiFillPlusSquare } from 'react-icons/ai';
+import { useRouter } from 'next/navigation';
 
 import { initialState, reducer } from './reducer';
 import actions from './actions';
@@ -16,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createAxiosJWT } from '@/instances';
 
 function AddRecipeForm() {
+    const router = useRouter();
     const dispatchRedux = useDispatch();
     const user = useSelector((state) => state.auth.userData);
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -25,8 +27,9 @@ function AddRecipeForm() {
         e.preventDefault();
 
         if (user) {
-            const res = await recipeRequest.add({ author: user._id, ...state }, axiosJWT);
+            const res = await recipeRequest.add({ author: user._id, ...state }, user.accessToken, axiosJWT);
             console.log(res);
+            if (res.status === 200) router.push('/user?content=My Recipes');
         } else {
             console.log('login please');
         }
@@ -35,16 +38,18 @@ function AddRecipeForm() {
     return (
         <form
             onSubmit={handleSubmit}
-            className="mx-auto translate-y-[-100px] lg:w-[800px] p-5 bg-white shadow-[0_0_10px_-1px_rgba(0,0,0,0.4)]"
+            className="mx-[10px] lg:mx-auto translate-y-[-100px] lg:w-[800px] p-5 bg-white shadow-[0_0_10px_-1px_rgba(0,0,0,0.4)]"
         >
             <h1 className="flex items-center text-black text-[30px] font-black">
                 <AiFillPlusSquare size={54} className="mr-[10px] text-primary" />
                 <span className="border-b-4 border-primary">Add a Recipe</span>
             </h1>
-            <p className="text-gray-500 mt-3 pb-4 border-b-[1px]">
+
+            <p className="text-gray-500 mt-3 pb-4 border-b-[1px] text-justify">
                 Uploading personal recipes is easy! Add yours to your favorites, share with friends, family, or the
                 Allrecipes community.
             </p>
+
             <FormSection>
                 <InfoSection
                     dispatch={dispatch}

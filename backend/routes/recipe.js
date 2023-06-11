@@ -4,4 +4,8 @@ const verifyAccessToken = require('../middlewares/verifyAccessToken');
 
 router.post('/add', verifyAccessToken, recipeController.add);
 
+router.get('/saved', verifyAccessToken, recipeController.getSavedRecipes);
+
+router.get('/:id', verifyAccessToken, recipeController.getUserRecipes);
+
 module.exports = router;

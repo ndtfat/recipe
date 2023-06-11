@@ -2,7 +2,7 @@ import { Loader } from '@/components/common';
 
 function Loading() {
     return (
-        <div>
+        <div className="w-screen h-screen">
             <Loader />
         </div>
     );
