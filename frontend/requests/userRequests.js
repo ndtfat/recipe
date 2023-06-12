@@ -31,7 +31,6 @@ export default {
             const res = await axiosJWT.get(process.env.SERVER_URL + `/user/${userId}`, {
                 headers: { token: 'Bearer ' + accessToken },
             });
-            console.log(res);
 
             return res.data;
         } catch (err) {

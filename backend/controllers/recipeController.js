@@ -34,13 +34,14 @@ class RecipeController {
                 findCondition = { author: id };
             }
 
-            const total_recipes = await RecipeModel.countDocuments({ author: id });
+            const total_recipes = await RecipeModel.countDocuments(findCondition);
             const recipes = await RecipeModel.find(findCondition).skip(skip).limit(size).sort({ createdAt: 'desc' });
 
             res.status(200).json({
                 status: 200,
                 message: 'Get recipes success',
                 total_pages: Math.ceil(total_recipes / size),
+                total_recipes,
                 page,
                 recipes,
             });
@@ -66,6 +67,7 @@ class RecipeController {
                 status: 200,
                 message: 'Get saved_recipes success',
                 total_pages: Math.ceil(saved_recipes.length / size),
+                total_recipes: saved_recipes.length,
                 page,
                 recipes: returnData,
             });

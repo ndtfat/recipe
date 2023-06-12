@@ -48,7 +48,7 @@ export default {
 
             if (data.status === 200) {
                 router.push('/auth/login');
-                dispatch(authActions.loginSuccess(data.data));
+                dispatch(authActions.logoutSuccess());
             }
         } catch (err) {
             console.log(err);

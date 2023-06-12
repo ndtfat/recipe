@@ -49,6 +49,7 @@ function UserPage({ params }) {
             }
 
             const myRecipes = await recipeRequest.getRecipes(params.id, page, user.accessToken, axiosJWT);
+            console.log({ id: params.id, myRecipes });
             recipes.current = {
                 ...recipes.current,
                 mine: myRecipes,
@@ -67,6 +68,7 @@ function UserPage({ params }) {
                 onChangeContent={setContent}
             />
             <UserContent
+                isUser={user?._id === params.id}
                 page={page}
                 onPage={setPage}
                 content={content}

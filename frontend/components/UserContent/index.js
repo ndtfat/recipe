@@ -5,15 +5,16 @@ import { AiOutlineHeart, AiOutlineLock, AiOutlineShareAlt } from 'react-icons/ai
 import InfoContent from './InfoContent';
 import RecipeList from './RecipeList';
 
-function UserContent({ content, page, onPage, userRecipesData, savedRecipesData, isLoading }) {
+function UserContent({ isUser = true, content, page, onPage, userRecipesData, savedRecipesData, isLoading }) {
     const [contentComponent, setContentComponent] = useState();
 
     useLayoutEffect(() => {
-        if (content === 'Personal Info') {
+        if (content === 'Personal Info' && isUser) {
             setContentComponent(<InfoContent />);
         } else if (content === 'My Recipes') {
             setContentComponent(
                 <RecipeList
+                    isUser={isUser}
                     content={content}
                     recipeData={userRecipesData}
                     loading={isLoading}
@@ -21,7 +22,7 @@ function UserContent({ content, page, onPage, userRecipesData, savedRecipesData,
                     onPage={onPage}
                 />,
             );
-        } else if (content === 'Saved Recipes') {
+        } else if (content === 'Saved Recipes' && isUser) {
             setContentComponent(
                 <RecipeList
                     content={content}
@@ -36,7 +37,14 @@ function UserContent({ content, page, onPage, userRecipesData, savedRecipesData,
 
     return (
         <div className="w-full lg:ml-8 bg-white px-7 py-5">
-            <h1 className="inline-block font-bold text-3xl text-black border-b-4 border-primary">{content}</h1>
+            <h1 className="inline-block font-bold text-3xl text-black border-b-4 border-primary">
+                {content}
+                {content !== 'Personal Info'
+                    ? ` - (${
+                          content === 'My Recipes' ? userRecipesData.total_recipes : savedRecipesData.total_recipes
+                      })`
+                    : ''}
+            </h1>
 
             <p className="flex items-end text-gray-500 mt-3 text-justify">
                 {content === 'Personal Info' ? (
@@ -47,7 +55,7 @@ function UserContent({ content, page, onPage, userRecipesData, savedRecipesData,
                 ) : content === 'My Recipes' ? (
                     <>
                         <AiOutlineShareAlt className="mr-[6px] text-2xl" />
-                        All recipes you shared.
+                        {isUser ? 'All recipes you shared.' : 'Shared recipes'}
                     </>
                 ) : (
                     <>

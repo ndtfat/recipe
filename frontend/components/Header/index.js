@@ -18,6 +18,10 @@ function Header() {
                     <Image alt="logo" src={sloganBlack} height={35} priority className="hidden lg:block" />
                 </Link>
 
+                <Link href="/user/6485e8c5c3c3b8cb1e66825b" className="text-black">
+                    click me
+                </Link>
+
                 <AccountMenu />
             </div>
 

@@ -58,6 +58,7 @@ function Auth({ params }) {
                         <Input
                             required
                             typeInput={1}
+                            placeholder="Your first name..."
                             label={'First name'}
                             value={inputs.last_name}
                             onChange={(e) =>
@@ -70,6 +71,7 @@ function Auth({ params }) {
                     <Input
                         required
                         typeInput={1}
+                        placeholder="Your last name..."
                         label={'Last name'}
                         value={inputs.first_name}
                         onChange={(e) =>
@@ -85,6 +87,7 @@ function Auth({ params }) {
                 required
                 mb={40}
                 typeInput={1}
+                placeholder="Your username..."
                 label={'Username'}
                 value={inputs.username}
                 onChange={(e) =>
@@ -99,6 +102,7 @@ function Auth({ params }) {
                 typeInput={1}
                 label={'Password'}
                 type="password"
+                placeholder="Your password..."
                 value={inputs.password}
                 onChange={(e) =>
                     setInputs((prev) => {
@@ -111,6 +115,7 @@ function Auth({ params }) {
                     required
                     mb={40}
                     typeInput={1}
+                    placeholder="Your email..."
                     label={'Email'}
                     type="email"
                     value={inputs.email}
