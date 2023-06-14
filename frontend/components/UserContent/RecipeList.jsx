@@ -12,9 +12,9 @@ function RecipeList({ isUser, content, recipeData, currentPage, onPage, loading 
                 <ul className="2-[500px]">
                     {recipeData.recipes.map((recipe) => (
                         <Link
-                            href={`/recipes/detail/${recipe._id}`}
+                            href={`/recipe/detail/${recipe._id}`}
                             key={recipe._id}
-                            className="flex mb-4 p-3 pr-5 items-center bg-[#f5f6ea] cursor-pointer hover:translate-y-[-4px] hover:shadow-md"
+                            className="duration-300 flex mb-4 p-3 pr-5 items-center bg-[#f5f6ea] cursor-pointer hover:translate-y-[-6px] hover:shadow-md"
                         >
                             <img
                                 src={recipe.imgURL}
@@ -25,7 +25,7 @@ function RecipeList({ isUser, content, recipeData, currentPage, onPage, loading 
                                 <h1 className="flex flex-row justify-between font-bold text-[18px] lg:text-xl">
                                     <span className="ellipsis mb-1 lg:mb-0">{recipe.title}</span>
 
-                                    <span className="flex items-center inline-block bg-primary text-white text-sm lg:text-base py-[2px] px-2 rounded">
+                                    <span className="flex items-center bg-primary text-white text-sm lg:text-base py-[2px] px-2 rounded">
                                         {recipe.isPublic ? 'Public' : 'Private'}
                                     </span>
                                 </h1>

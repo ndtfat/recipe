@@ -1,6 +1,8 @@
 'use client';
 import { useLayoutEffect, useState } from 'react';
-import { AiOutlineHeart, AiOutlineLock, AiOutlineShareAlt } from 'react-icons/ai';
+import { AiOutlineLock } from '@react-icons/all-files/ai/AiOutlineLock';
+import { AiOutlineHeart } from '@react-icons/all-files/ai/AiOutlineHeart';
+import { AiOutlineShareAlt } from '@react-icons/all-files/ai/AiOutlineShareAlt';
 
 import InfoContent from './InfoContent';
 import RecipeList from './RecipeList';

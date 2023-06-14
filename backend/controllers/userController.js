@@ -25,7 +25,6 @@ class UserController {
     //[PUT] /user/update/password
     async updatePassword(req, res) {
         const user = await UserModel.findById(req.user._id);
-        console.log(req.body);
         const isValidPassword = await bcrypt.compare(req.body.current, user.password);
 
         if (isValidPassword) {
@@ -37,7 +36,7 @@ class UserController {
                 .catch((err) => {
                     if (err.name === 'TokenExpiredError')
                         return res.status(403).json({ status: 403, message: 'TokenExpiredError', err });
-                    return res.status(500).json({ status: 500, message: 'EServer Err', err });
+                    return res.status(500).json({ status: 500, message: 'Server Err', err });
                 });
         } else {
             return res.status(403).json({ status: 403, message: 'Invalid password' });
@@ -55,6 +54,51 @@ class UserController {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    //[PUT] /user/save-recipe/:id
+    async saveRecipe(req, res) {
+        console.log(`save: `, req.params.id);
+
+        const user = await UserModel.findById(req.user._id);
+        user.saved_recipes.push(req.params.id);
+
+        user.save()
+            .then((data) =>
+                res.status(200).json({
+                    status: 200,
+                    message: `Saved recipe (${req.params.id}) success`,
+                    saved_recipes: data.saved_recipes,
+                }),
+            )
+            .catch((err) => {
+                if (err.name === 'TokenExpiredError')
+                    return res.status(403).json({ status: 403, message: 'TokenExpiredError', err });
+                return res.status(500).json({ status: 500, message: 'EServer Err', err });
+            });
+    }
+
+    //[PUT] /user/unsave-recipe/:id
+    async unsaveRecipe(req, res) {
+        const unsavedId = req.params.id;
+        console.log('unsave: ', unsavedId);
+
+        const user = await UserModel.findById(req.user._id);
+        user.saved_recipes = user.saved_recipes.filter((id) => id !== unsavedId);
+
+        user.save()
+            .then((data) =>
+                res.status(200).json({
+                    status: 200,
+                    message: `Unsaved recipe (${unsavedId}) success`,
+                    saved_recipes: data.saved_recipes,
+                }),
+            )
+            .catch((err) => {
+                if (err.name === 'TokenExpiredError')
+                    return res.status(403).json({ status: 403, message: 'TokenExpiredError', err });
+                return res.status(500).json({ status: 500, message: 'EServer Err', err });
+            });
     }
 }
 

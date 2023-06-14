@@ -23,3 +23,16 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+.red-bullet {
+    /* margin-left: 1em; */
+    list-style: none; /* Remove default bullets */
+}
+
+.red-bullet li::before {
+    content: '\2022';
+    width: 1em;
+    color: #ff3130;
+    display: inline-block;
+    font-weight: bold;
+}

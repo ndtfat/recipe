@@ -34,4 +34,26 @@ export default {
             console.log(err);
         }
     },
+
+    async getRecipeDetail(id, accessToken, axiosJWT) {
+        try {
+            const res = await axiosJWT.get(process.env.SERVER_URL + `/recipe/detail/${id}`, {
+                headers: { token: 'Bearer ' + accessToken },
+            });
+
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async getRelativeRecipes(id, accessToken, axiosJWT) {
+        try {
+            const res = await axiosJWT.get(process.env.SERVER_URL + `/recipe/relative/${id}`, {
+                headers: { token: 'Bearer ' + accessToken },
+            });
+
+            return res.data;
+        } catch (err) {}
+    },
 };

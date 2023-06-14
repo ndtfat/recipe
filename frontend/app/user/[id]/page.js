@@ -1,5 +1,5 @@
 'use client';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { redirect, useSearchParams } from 'next/navigation';
 
 import { userRequests, recipeRequest } from '@/requests';
@@ -9,7 +9,8 @@ import { useEffect, useRef, useState } from 'react';
 
 function UserPage({ params }) {
     const user = useSelector((state) => state.auth.userData);
-    const axiosJWT = createAxiosJWT(user);
+    const dispatch = useDispatch();
+    const axiosJWT = createAxiosJWT(user, dispatch);
     const searchParams = useSearchParams();
     const [page, setPage] = useState(1);
     const [content, setContent] = useState(searchParams.get('content') || 'My Recipes');
@@ -49,7 +50,6 @@ function UserPage({ params }) {
             }
 
             const myRecipes = await recipeRequest.getRecipes(params.id, page, user.accessToken, axiosJWT);
-            console.log({ id: params.id, myRecipes });
             recipes.current = {
                 ...recipes.current,
                 mine: myRecipes,

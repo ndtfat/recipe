@@ -1,6 +1,7 @@
 'use client';
-import { AiFillInfoCircle } from 'react-icons/ai';
-import { FaHeart, FaUtensilSpoon } from 'react-icons/fa';
+import { AiFillInfoCircle } from '@react-icons/all-files/ai/AiFillInfoCircle';
+import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
+import { FaUtensilSpoon } from '@react-icons/all-files/fa/FaUtensilSpoon';
 import { useSelector } from 'react-redux';
 import LoaderSpin from '../common/LoaderSpin';
 

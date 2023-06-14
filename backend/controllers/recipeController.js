@@ -75,6 +75,56 @@ class RecipeController {
             res.status(500).json({ status: 500, message: 'Server error', err });
         }
     }
+
+    //[GET] /recipe/detail/:id
+    async getDetailRecipe(req, res) {
+        const recipeId = req.params.id;
+        const userId = req.user._id;
+
+        console.log('get recipe_detail: ', recipeId);
+
+        try {
+            const user = await UserModel.findById(userId);
+            const recipe = await RecipeModel.findById(recipeId).populate({
+                path: 'author',
+                select: 'first_name last_name',
+            });
+
+            if (recipe) {
+                const isSaved = user.saved_recipes.includes(recipeId);
+                const isUsersRecipe = userId === recipe.author.id;
+
+                return res
+                    .status(200)
+                    .json({ status: 200, message: 'Get recipe_detail success', isSaved, isUsersRecipe, data: recipe });
+            } else {
+                return res.status(403).json({ status: 403, message: 'Invalid recipe_id', err });
+            }
+        } catch (err) {
+            res.json(err);
+        }
+    }
+
+    // [GET] /recipe/relative/:id
+    async getRelativeRecipes(req, res) {
+        const recipeId = req.params.id;
+        console.log('Get relative: ', recipeId);
+        try {
+            const recipe = await RecipeModel.findById(recipeId);
+
+            const relativeRecipes = await RecipeModel.find({
+                dishType: recipe.dishType,
+                _id: { $ne: recipeId },
+            }).populate({
+                path: 'author',
+                select: 'first_name last_name',
+            });
+
+            res.status(200).json({ status: 200, message: 'Get relative_recipes success', data: relativeRecipes });
+        } catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 module.exports = new RecipeController();

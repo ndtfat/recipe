@@ -56,7 +56,7 @@ class authController {
         }
 
         if (isValid) {
-            const { password, createdAt, updatedAt, saved_recipes, ...other } = user._doc;
+            const { password, createdAt, updatedAt, ...other } = user._doc;
             const accessToken = generateAccessToken(other);
             const refreshToken = generateRefreshToken(other);
 

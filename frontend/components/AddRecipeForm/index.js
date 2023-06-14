@@ -1,7 +1,7 @@
 'use client';
 
 import { useReducer } from 'react';
-import { AiFillPlusSquare } from 'react-icons/ai';
+import { AiFillPlusSquare } from '@react-icons/all-files/ai/AiFillPlusSquare';
 import { useRouter } from 'next/navigation';
 
 import { initialState, reducer } from './reducer';

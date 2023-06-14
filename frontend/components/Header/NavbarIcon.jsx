@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { FiMenu } from 'react-icons/fi';
-import { GrClose } from 'react-icons/gr';
-import { SlArrowRight } from 'react-icons/sl';
+import { FiMenu } from '@react-icons/all-files/fi/FiMenu';
+import { GrClose } from '@react-icons/all-files/gr/GrClose';
+import { MdKeyboardArrowRight } from '@react-icons/all-files/md/MdKeyboardArrowRight';
 
 import categories from '@/public/category';
 
@@ -33,7 +33,7 @@ function NavbarIcon() {
                                 href={category.href}
                                 className="cursor-pointer w-full flex items-center justify-between pl-[50px] pr-[20px] py-[16px] border-b-[1px] border-[#ccc] hover:bg-slate-200"
                             >
-                                {category.title} <SlArrowRight />
+                                {category.title} <MdKeyboardArrowRight />
                             </Link>
                         ))}
                     </nav>

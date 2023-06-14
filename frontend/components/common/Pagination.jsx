@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import { HiOutlineArrowNarrowLeft } from '@react-icons/all-files/hi/HiOutlineArrowNarrowLeft';
+import { HiOutlineArrowNarrowRight } from '@react-icons/all-files/hi/HiOutlineArrowNarrowRight';
 
 function Pagination({ totalPages, onPage, currentPage }) {
     const pageNums = Array.from({ length: totalPages }, (v, i) => i + 1);

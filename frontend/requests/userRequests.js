@@ -37,4 +37,36 @@ export default {
             console.log(err);
         }
     },
+
+    async saveRecipe(recipeId, accessToken, axiosJWT) {
+        try {
+            const res = await axiosJWT.put(
+                process.env.SERVER_URL + `/user/save-recipe/${recipeId}`,
+                {},
+                {
+                    headers: { token: 'Bearer ' + accessToken },
+                },
+            );
+
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async unsaveRecipe(recipeId, accessToken, axiosJWT) {
+        try {
+            const res = await axiosJWT.put(
+                process.env.SERVER_URL + `/user/unsave-recipe/${recipeId}`,
+                {},
+                {
+                    headers: { token: 'Bearer ' + accessToken },
+                },
+            );
+
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
 };

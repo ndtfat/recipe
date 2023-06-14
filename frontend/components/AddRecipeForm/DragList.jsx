@@ -2,10 +2,11 @@
 
 import { Reorder, useDragControls } from 'framer-motion';
 import { memo, useState } from 'react';
-import { FaCheck, FaPlus } from 'react-icons/fa';
-import { GrDrag } from 'react-icons/gr';
-import { SlClose } from 'react-icons/sl';
-import { TbReplaceFilled } from 'react-icons/tb';
+import { FaCheck } from '@react-icons/all-files/fa/FaCheck';
+import { FaPlus } from '@react-icons/all-files/fa/FaPlus';
+import { GrDrag } from '@react-icons/all-files/gr/GrDrag';
+import { AiOutlineCloseCircle } from '@react-icons/all-files/ai/AiOutlineCloseCircle';
+import { CgArrowsExchangeV } from '@react-icons/all-files/cg/CgArrowsExchangeV';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useEffect } from 'react';
@@ -54,7 +55,7 @@ function DragList({ textarea = false, placeholder = 'placeholder', list = [], di
                 onClick={() => setIsReorder((prev) => !prev)}
                 className="flex items-start justify-end cursor-pointer font-bold mb-2 text-[14px] hover:text-primary"
             >
-                {isReorder ? <FaCheck size={16} className="mr-2" /> : <TbReplaceFilled size={20} className="mr-2" />}
+                {isReorder ? <FaCheck size={16} className="mr-2" /> : <CgArrowsExchangeV size={20} className="mr-2" />}
                 {isReorder ? 'DONE' : 'REORDER'}
             </span>
 
@@ -84,7 +85,7 @@ function DragList({ textarea = false, placeholder = 'placeholder', list = [], di
                                 onPointerDown={(e) => controls.start(e)}
                             />
                         ) : (
-                            <SlClose
+                            <AiOutlineCloseCircle
                                 size={30}
                                 className="ml-[20px] cursor-pointer"
                                 onClick={() => handleRemove(item.id)}

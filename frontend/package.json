@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@react-icons/all-files": "^4.1.0",
         "@react-native-async-storage/async-storage": "^1.18.1",
         "@reduxjs/toolkit": "^1.9.5",
         "autoprefixer": "10.4.14",
@@ -25,7 +26,6 @@
         "postcss": "8.4.24",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-icons": "^4.9.0",
         "react-redux": "^8.0.7",
         "redux-persist": "^6.0.0",
         "sass": "^1.62.1",

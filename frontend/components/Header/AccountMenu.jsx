@@ -2,9 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
-import { FaPlus } from 'react-icons/fa';
-import { FiLogOut, FiLogIn } from 'react-icons/fi';
-import { RiAccountPinCircleFill } from 'react-icons/ri';
+import { FaPlus } from '@react-icons/all-files/fa/FaPlus';
+import { FiLogOut } from '@react-icons/all-files/fi/FiLogOut';
+import { FiLogIn } from '@react-icons/all-files/fi/FiLogIn';
+import { RiAccountPinCircleFill } from '@react-icons/all-files/ri/RiAccountPinCircleFill';
 import Link from 'next/link';
 import Image from 'next/image';
 

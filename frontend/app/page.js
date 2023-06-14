@@ -1,11 +1,10 @@
 import { Header } from '@/components';
-import { Loader } from '@/components/common';
 
 function Home() {
     return (
         <div>
             <Header />
-            <Loader />
+            <h1>HOME PAGE</h1>
         </div>
     );
 }
