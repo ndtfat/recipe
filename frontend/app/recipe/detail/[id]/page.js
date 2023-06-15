@@ -1,16 +1,16 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { redirect, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { RecipeDetail } from '@/components';
 import LoaderSpin from '@/components/common/LoaderSpin';
-import { createAxiosJWT } from '@/instances';
 import { recipeRequest } from '@/requests';
-import { redirect } from 'next/navigation';
+import { RecipeDetail } from '@/components';
+import { createAxiosJWT, formatDate } from '@/instances';
 
 function Page({ params }) {
     const user = useSelector((state) => state.auth.userData);
-    const axiosJWT = createAxiosJWT(user, useDispatch());
+    const axiosJWT = createAxiosJWT(user, useDispatch(), useRouter());
     const [recipe, setRecipe] = useState({});
     const [relativeReps, setRelativeReps] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -30,9 +30,7 @@ function Page({ params }) {
             const relativeRes = await recipeRequest.getRelativeRecipes(recipeId, accessToken, axiosJWT);
 
             if (recipeDetailRes) {
-                const isoDate = new Date(recipeDetailRes.data.updatedAt);
-                const options = { month: 'long', day: 'numeric', year: 'numeric' };
-                const formattedDate = isoDate.toLocaleDateString('en-US', options);
+                const formattedDate = formatDate(recipeDetailRes.data.updatedAt);
 
                 let totalTime;
                 const { prepTime, cookingTime } = recipeDetailRes.data.times;

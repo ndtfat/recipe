@@ -66,7 +66,7 @@ function OverView({ data, isSaved, onSaveRecipe }) {
             </div>
 
             <div className="mt-4 p-3 pr-48 bg-secondary flex items-end justify-between">
-                <FcAlarmClock size={26} className="mr-[-60px] text-primary" />
+                <FcAlarmClock size={26} className="mr-[-30px] text-primary" />
                 <p>
                     <span className="font-bold">Prep time:</span>{' '}
                     {`${data.times.prepTime.value} ${data.times.prepTime.measure}`}

@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,7 +10,7 @@ import userRequests from '@/requests/userRequests';
 function InfoContent() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.userData);
-    const axiosJWT = createAxiosJWT(user, dispatch);
+    const axiosJWT = createAxiosJWT(user, dispatch, useRouter());
 
     const [userInfo, setUserInfo] = useState(user);
     const [isChangeInfo, setIsChangeInfo] = useState(false);

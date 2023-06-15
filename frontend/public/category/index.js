@@ -10,35 +10,35 @@ export default [
         title: 'Main Dishes',
         desc: 'Hundreds of main dish recipes. Choose from top-rated comfort food, healthy, and vegetarian options. Find your dinner star now!',
         background: main,
-        href: '/recipes/main',
+        href: '/recipe/main',
     },
     {
         param: 'soup',
         title: 'Soups',
         desc: 'Hundreds of main dish recipes. Choose from top-rated comfort food, healthy, and vegetarian options. Find your dinner star now!',
         background: soup,
-        href: '/recipes/soup',
+        href: '/recipe/soup',
     },
     {
         param: 'healthy',
         title: 'Healthy',
         desc: 'Find trusted recipes for eating healthy: start the day with a wholesome breakfast, cut the carbs or calories, find the perfect main dish for your special diet.',
         background: healthy,
-        href: '/recipes/healthy',
+        href: '/recipe/healthy',
     },
     {
         param: 'dessert',
         title: 'Dessert',
         desc: 'From cocktails to punch for kids, find the perfect party drink. Plus videos, photos, and reviews to help you mix drinks right.',
         background: dessert,
-        href: '/recipes/dessert',
+        href: '/recipe/dessert',
     },
     {
         param: 'drink',
         title: 'Drinks',
         desc: 'From cocktails to punch for kids, find the perfect party drink. Plus videos, photos, and reviews to help you mix drinks right.',
         background: drink,
-        href: '/recipes/drink',
+        href: '/recipe/drink',
     },
 
     {
@@ -46,6 +46,6 @@ export default [
         title: 'Other',
         desc: 'Many type of amazing food. Pick one and try it now.',
         background: drink,
-        href: '/recipes/other',
+        href: '/recipe/other',
     },
 ];

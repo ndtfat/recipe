@@ -9,11 +9,12 @@ import OverView from './OverView';
 import { RecipeCard } from '../common';
 import { userRequests } from '@/requests';
 import { createAxiosJWT } from '@/instances';
+import Review from './Review';
 
 function RecipeDetail({ data, relativeReps }) {
     const router = useRouter();
     const user = useSelector((state) => state.auth.userData);
-    const axiosJWT = createAxiosJWT(user, useDispatch());
+    const axiosJWT = createAxiosJWT(user, useDispatch(), router);
     const [isSaved, setIsSaved] = useState(data.isSaved);
 
     const handleSavedRecipe = async () => {
@@ -42,11 +43,13 @@ function RecipeDetail({ data, relativeReps }) {
                     <h1 className="font-bold text-[40px]">{data.note.title}</h1>
                     <p>{data.note.content}</p>
                 </div>
+
+                <Review recipe={data} />
             </div>
 
             <div className="mt-8">
-                <h1 className="mb-4 font-bold text-[40px] text-primary flex items-center">
-                    <GiHotMeal className="mr-2" />
+                <h1 className="mb-4 font-bold text-[40px] flex items-center">
+                    <GiHotMeal className="mr-2 translate-y-[-6px]" color="#ff3130" />
                     You'll Also Love
                 </h1>
 

@@ -49,7 +49,7 @@ class authController {
     // [POST] /auth/login
     async login(req, res) {
         console.log(req.body.username + ' login');
-        const user = await UserModel.findOne({ username: req.body.username });
+        const user = await UserModel.findOne({ username: req.body.username }).select('+password');
         let isValid = false;
         if (user) {
             isValid = await bcrypt.compare(req.body.password, user.password);

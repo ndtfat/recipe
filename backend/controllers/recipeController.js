@@ -4,7 +4,7 @@ const RecipeModel = require('../models/Recipe');
 class RecipeController {
     // [POST] /recipe/add
     add(req, res) {
-        console.log('add recipe');
+        console.log(req.user.username, 'add recipe');
         const newRecipe = new RecipeModel({ ...req.body });
         newRecipe
             .save()
@@ -113,8 +113,9 @@ class RecipeController {
             const recipe = await RecipeModel.findById(recipeId);
 
             const relativeRecipes = await RecipeModel.find({
-                dishType: recipe.dishType,
                 _id: { $ne: recipeId },
+                isPublic: true,
+                dishType: recipe.dishType,
             }).populate({
                 path: 'author',
                 select: 'first_name last_name',

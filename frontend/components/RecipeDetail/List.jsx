@@ -6,9 +6,11 @@ function List({ title, list }) {
             <ul className={title === 'Ingredients' ? 'red-bullet' : ''}>
                 {list.map((item, index) =>
                     title === 'Ingredients' ? (
-                        <li className="mb-3">{item.value}</li>
+                        <li key={item.id} className="mb-3">
+                            {item.value}
+                        </li>
                     ) : (
-                        <li className="mb-5">
+                        <li key={item.id} className="mb-5">
                             {list.length > 1 && <h2 className="font-bold mb-1">Step {index + 1}</h2>}
                             <p className="text-justify">{item.value}</p>
                         </li>

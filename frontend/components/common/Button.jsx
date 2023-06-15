@@ -15,7 +15,7 @@ function Button({ typeBtn = 'default', type = 'button', className = '', disable,
             type={type}
             className={
                 'inline-block outline-none duration-300 cursor-pointer' +
-                (disable ? ' opacity-50 pointer-events-none ' : ' ') +
+                (disable ? ' bg-[#d9d9d9] pointer-events-none ' : ' ') +
                 className +
                 ' ' +
                 classes.current[typeBtn]

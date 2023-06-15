@@ -18,10 +18,9 @@ import { createAxiosJWT } from '@/instances';
 
 function AddRecipeForm() {
     const router = useRouter();
-    const dispatchRedux = useDispatch();
     const user = useSelector((state) => state.auth.userData);
     const [state, dispatch] = useReducer(reducer, initialState);
-    const axiosJWT = createAxiosJWT(user, dispatchRedux);
+    const axiosJWT = createAxiosJWT(user, useDispatch(), router);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
