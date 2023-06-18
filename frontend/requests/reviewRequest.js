@@ -13,13 +13,10 @@ export default {
 
     async delete(reviewId, recipeId, accessToken, axiosJWT) {
         try {
-            const res = await axiosJWT.delete(
-                process.env.SERVER_URL + `/review/delete/${reviewId}`,
-                { recipeId },
-                {
-                    headers: { token: 'Bearer ' + accessToken },
-                },
-            );
+            const res = await axiosJWT.delete(process.env.SERVER_URL + `/review/delete/${reviewId}`, {
+                headers: { token: 'Bearer ' + accessToken },
+                data: { recipeId },
+            });
 
             return res.data;
         } catch (err) {

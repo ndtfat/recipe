@@ -25,7 +25,6 @@ class authController {
     // [POST] /auth/register
     async register(req, res) {
         let newUser;
-        console.log(req.body.username + ' register');
         await bcrypt
             .hash(req.body.password, 10)
             .then((password) => (newUser = new UserModel({ ...req.body, password })))
@@ -48,7 +47,6 @@ class authController {
 
     // [POST] /auth/login
     async login(req, res) {
-        console.log(req.body.username + ' login');
         const user = await UserModel.findOne({ username: req.body.username }).select('+password');
         let isValid = false;
         if (user) {
@@ -75,7 +73,6 @@ class authController {
         res.clearCookie('refresh_token');
         refreshTokenStore.filter((token) => token !== req.cookies.refresh_token);
 
-        console.log('user logout');
         return res.status(200).json({ status: 200, message: 'Logout successful' });
     }
 

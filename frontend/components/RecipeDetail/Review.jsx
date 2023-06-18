@@ -50,13 +50,19 @@ function Review({ recipe }) {
             axiosJWT,
         );
 
-        console.log(res);
         setReviews(res.data);
         setIsReviewed(res.addedReview);
         setIsLoading(false);
     };
 
-    const handleDeleteReview = async (e) => {};
+    const handleDeleteReview = async (e) => {
+        setIsLoading(true);
+        console.log(user.accessToken);
+        const res = await reviewRequest.delete(isReviewed._id, recipe._id, user.accessToken, axiosJWT);
+        setReviews(res.data);
+        setIsReviewed(false);
+        setIsLoading(false);
+    };
 
     const handleSortReviews = async (e) => {
         setLoadingReviews(true);

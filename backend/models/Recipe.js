@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoose_delete = require('mongoose-delete');
 
 const RecipeSchema = new Schema(
     {
@@ -20,5 +21,7 @@ const RecipeSchema = new Schema(
         timestamps: true,
     },
 );
+
+RecipeSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedAt: true });
 
 module.exports = mongoose.model('recipes', RecipeSchema);

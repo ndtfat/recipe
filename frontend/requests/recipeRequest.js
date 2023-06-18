@@ -11,9 +11,47 @@ export default {
         }
     },
 
-    async getRecipes(userId, page, accessToken, axiosJWT) {
+    async softFelete(ids, accessToken, axiosJWT) {
         try {
-            const res = await axiosJWT.get(process.env.SERVER_URL + `/recipe/${userId}?page=${page}`, {
+            const res = await axiosJWT.patch(
+                process.env.SERVER_URL + '/recipe/delete-soft',
+                { ids },
+                { headers: { token: 'Bearer ' + accessToken } },
+            );
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async forceDelete(ids, accessToken, axiosJWT) {
+        try {
+            const res = await axiosJWT.delete(process.env.SERVER_URL + '/recipe/delete-force', {
+                data: { ids },
+                headers: { token: 'Bearer ' + accessToken },
+            });
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async restore(ids, accessToken, axiosJWT) {
+        try {
+            const res = await axiosJWT.patch(
+                process.env.SERVER_URL + '/recipe/restore',
+                { ids },
+                { headers: { token: 'Bearer ' + accessToken } },
+            );
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async getRecipes(userId, page, sortBy, accessToken, axiosJWT) {
+        try {
+            const res = await axiosJWT.get(process.env.SERVER_URL + `/recipe/${userId}?page=${page}&sortBy=${sortBy}`, {
                 headers: { token: 'Bearer ' + accessToken },
             });
 
@@ -23,9 +61,24 @@ export default {
         }
     },
 
-    async getSavedRecipes(page, accessToken, axiosJWT) {
+    async getRecipesDeleted(userId, page, sortBy, accessToken, axiosJWT) {
         try {
-            const res = await axiosJWT(process.env.SERVER_URL + `/recipe/saved?page=${page}}`, {
+            const res = await axiosJWT.get(
+                process.env.SERVER_URL + `/recipe/${userId}/deleted?page=${page}&sortBy=${sortBy}`,
+                {
+                    headers: { token: 'Bearer ' + accessToken },
+                },
+            );
+
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async getSavedRecipes(page, sortBy, accessToken, axiosJWT) {
+        try {
+            const res = await axiosJWT(process.env.SERVER_URL + `/recipe/saved?page=${page}&sortBy=${sortBy}`, {
                 headers: { token: 'Bearer ' + accessToken },
             });
 

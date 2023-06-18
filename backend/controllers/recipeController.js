@@ -4,7 +4,6 @@ const RecipeModel = require('../models/Recipe');
 class RecipeController {
     // [POST] /recipe/add
     add(req, res) {
-        console.log(req.user.username, 'add recipe');
         const newRecipe = new RecipeModel({ ...req.body });
         newRecipe
             .save()
@@ -18,13 +17,14 @@ class RecipeController {
 
     // [GET] /recipe/:id?page=
     async getUserRecipes(req, res) {
-        try {
-            const id = req.params.id;
-            const user = req.user;
-            let page = Number(req.query.page);
+        const [fieldSort, sortBy] = req.query.sortBy.split(' ');
+        const id = req.params.id;
+        const user = req.user;
+        const size = 12;
+        let page = Number(req.query.page);
 
+        try {
             if (!page || page < 1) page = 1;
-            const size = 12;
             const skip = size * (page - 1);
 
             let findCondition = { author: id, isPublic: true };
@@ -35,7 +35,10 @@ class RecipeController {
             }
 
             const total_recipes = await RecipeModel.countDocuments(findCondition);
-            const recipes = await RecipeModel.find(findCondition).skip(skip).limit(size).sort({ createdAt: 'desc' });
+            const recipes = await RecipeModel.find(findCondition)
+                .skip(skip)
+                .limit(size)
+                .sort({ [fieldSort]: sortBy });
 
             res.status(200).json({
                 status: 200,
@@ -52,9 +55,12 @@ class RecipeController {
 
     //[GET] /recipe/saved?page=
     async getSavedRecipes(req, res) {
+        const [fieldSort, sortBy] = req.query.sortBy.split(' ');
+
         try {
             const { saved_recipes } = await UserModel.findById(req.user._id, { saved_recipes: { $slice: 1 } })
-                .populate('saved_recipes')
+                .sort({ [fieldSort]: sortBy })
+                .populate({ path: 'saved_recipes', populate: { path: 'author', select: 'first_name last_name' } })
                 .select('saved_recipes -_id');
 
             let page = Number(req.query.page);
@@ -81,41 +87,38 @@ class RecipeController {
         const recipeId = req.params.id;
         const userId = req.user._id;
 
-        console.log('get recipe_detail: ', recipeId);
+        const user = await UserModel.findById(userId);
+        const recipe = await RecipeModel.find({ _id: recipeId }).populate({
+            path: 'author',
+            select: 'first_name last_name',
+        });
 
-        try {
-            const user = await UserModel.findById(userId);
-            const recipe = await RecipeModel.findById(recipeId).populate({
-                path: 'author',
-                select: 'first_name last_name',
+        if (recipe) {
+            const isSaved = user.saved_recipes.includes(recipeId);
+            const isUsersRecipe = userId === recipe[0].author.id;
+
+            return res.json({
+                status: 200,
+                message: 'Get recipe_detail success',
+                isSaved,
+                isUsersRecipe,
+                data: recipe[0],
             });
-
-            if (recipe) {
-                const isSaved = user.saved_recipes.includes(recipeId);
-                const isUsersRecipe = userId === recipe.author.id;
-
-                return res
-                    .status(200)
-                    .json({ status: 200, message: 'Get recipe_detail success', isSaved, isUsersRecipe, data: recipe });
-            } else {
-                return res.status(403).json({ status: 403, message: 'Invalid recipe_id', err });
-            }
-        } catch (err) {
-            res.json(err);
+        } else {
+            return res.status(403).json({ status: 403, message: 'Invalid recipe_id', err });
         }
     }
 
     // [GET] /recipe/relative/:id
     async getRelativeRecipes(req, res) {
         const recipeId = req.params.id;
-        console.log('Get relative: ', recipeId);
         try {
-            const recipe = await RecipeModel.findById(recipeId);
+            const recipe = await RecipeModel.find({ _id: recipeId });
 
             const relativeRecipes = await RecipeModel.find({
                 _id: { $ne: recipeId },
                 isPublic: true,
-                dishType: recipe.dishType,
+                dishType: recipe[0].dishType,
             }).populate({
                 path: 'author',
                 select: 'first_name last_name',
@@ -125,6 +128,57 @@ class RecipeController {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    //[PATCH] /recipe/delete-soft
+    softDelete(req, res) {
+        const ids = req.body.ids;
+        RecipeModel.delete({ _id: { $in: ids } }).then((data) => res.json({ message: 'delete success', data }));
+    }
+
+    //[GET] /recipe/:id/deleted?page=
+    async getUserRecipesDeleted(req, res) {
+        const [fieldSort, sortBy] = req.query.sortBy.split(' ');
+        const id = req.params.id;
+        const user = req.user;
+        const size = 12;
+        let page = Number(req.query.page);
+
+        try {
+            if (!page || page < 1) page = 1;
+            const skip = size * (page - 1);
+
+            const total_recipes = await RecipeModel.countDocumentsDeleted({ author: id });
+            const recipes = await RecipeModel.findDeleted()
+                .skip(skip)
+                .limit(size)
+                .sort({ [fieldSort]: sortBy });
+
+            res.status(200).json({
+                status: 200,
+                message: 'Get recipes success',
+                total_pages: Math.ceil(total_recipes / size),
+                total_recipes,
+                page,
+                recipes,
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    //[PATCH] /recipe/restore
+    restore(req, res) {
+        const ids = req.body.ids;
+        RecipeModel.updateManyDeleted({ _id: { $in: ids } }, { deleted: false }).then((data) =>
+            res.json({ message: 'restore success', data }),
+        );
+    }
+
+    //[DELETE] /recipe/delete-force
+    forceDelete(req, res) {
+        const ids = req.body.ids;
+        RecipeModel.deleteMany({ _id: { $in: ids } }).then((data) => res.json({ message: 'delete success', data }));
     }
 }
 

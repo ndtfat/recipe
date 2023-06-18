@@ -38,14 +38,12 @@ export default {
         }
     },
 
-    async saveRecipe(recipeId, accessToken, axiosJWT) {
+    async saveRecipes(ids, accessToken, axiosJWT) {
         try {
-            const res = await axiosJWT.put(
-                process.env.SERVER_URL + `/user/save-recipe/${recipeId}`,
-                {},
-                {
-                    headers: { token: 'Bearer ' + accessToken },
-                },
+            const res = await axiosJWT.patch(
+                process.env.SERVER_URL + `/user/save-recipe`,
+                { ids },
+                { headers: { token: 'Bearer ' + accessToken } },
             );
 
             return res.data;
@@ -54,14 +52,12 @@ export default {
         }
     },
 
-    async unsaveRecipe(recipeId, accessToken, axiosJWT) {
+    async unsaveRecipes(ids, accessToken, axiosJWT) {
         try {
-            const res = await axiosJWT.put(
-                process.env.SERVER_URL + `/user/unsave-recipe/${recipeId}`,
-                {},
-                {
-                    headers: { token: 'Bearer ' + accessToken },
-                },
+            const res = await axiosJWT.patch(
+                process.env.SERVER_URL + `/user/unsave-recipe`,
+                { ids },
+                { headers: { token: 'Bearer ' + accessToken } },
             );
 
             return res.data;

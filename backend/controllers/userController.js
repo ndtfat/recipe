@@ -45,7 +45,6 @@ class UserController {
 
     //[GET] /user/:id
     async getUserInfo(req, res) {
-        console.log('get info: ', req.params.id);
         try {
             const user = await UserModel.findById(req.params.id);
             const { password, saved_recipes, ...otherData } = user._doc;
@@ -56,18 +55,18 @@ class UserController {
         }
     }
 
-    //[PUT] /user/save-recipe/:id
+    //[PATCH] /user/save-recipe/
     async saveRecipe(req, res) {
-        console.log(`save: `, req.params.id);
+        const saveIds = req.body.ids;
 
         const user = await UserModel.findById(req.user._id);
-        user.saved_recipes.push(req.params.id);
+        user.saved_recipes = user.saved_recipes.concat(saveIds);
 
         user.save()
             .then((data) =>
                 res.status(200).json({
                     status: 200,
-                    message: `Saved recipe (${req.params.id}) success`,
+                    message: `Saved recipes success`,
                     saved_recipes: data.saved_recipes,
                 }),
             )
@@ -78,26 +77,22 @@ class UserController {
             });
     }
 
-    //[PUT] /user/unsave-recipe/:id
+    //[PATCH] /user/unsave-recipe/
     async unsaveRecipe(req, res) {
-        const unsavedId = req.params.id;
-        console.log('unsave: ', unsavedId);
+        const unsavedIds = req.body.ids;
 
         const user = await UserModel.findById(req.user._id);
-        user.saved_recipes = user.saved_recipes.filter((id) => id !== unsavedId);
+        user.saved_recipes = user.saved_recipes.filter((id) => !unsavedIds.includes(id));
 
         user.save()
-            .then((data) =>
+            .then(() =>
                 res.status(200).json({
                     status: 200,
-                    message: `Unsaved recipe (${unsavedId}) success`,
-                    saved_recipes: data.saved_recipes,
+                    message: `Unsaved recipes success`,
                 }),
             )
             .catch((err) => {
-                if (err.name === 'TokenExpiredError')
-                    return res.status(403).json({ status: 403, message: 'TokenExpiredError', err });
-                return res.status(500).json({ status: 500, message: 'EServer Err', err });
+                console.log(err);
             });
     }
 }

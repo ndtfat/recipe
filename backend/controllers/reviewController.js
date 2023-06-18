@@ -58,7 +58,6 @@ class reviewController {
 
     // [GET] /review/:id?sortBy
     async get(req, res) {
-        console.log('get: ', req.query.sortBy);
         try {
             const userId = req.user._id;
             const recipeId = req.params.id;

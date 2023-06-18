@@ -30,8 +30,6 @@ function Page({ params }) {
             const relativeRes = await recipeRequest.getRelativeRecipes(recipeId, accessToken, axiosJWT);
 
             if (recipeDetailRes) {
-                const formattedDate = formatDate(recipeDetailRes.data.updatedAt);
-
                 let totalTime;
                 const { prepTime, cookingTime } = recipeDetailRes.data.times;
                 const timeLevel = { mins: 0, hours: 1, days: 2 };
@@ -48,7 +46,6 @@ function Page({ params }) {
                     ...recipeDetailRes.data,
                     times: { ...recipeDetailRes.data.times, totalTime },
                     isSaved: recipeDetailRes.isSaved,
-                    updatedAt: formattedDate,
                     isUsersRecipe: recipeDetailRes.isUsersRecipe,
                 });
             }

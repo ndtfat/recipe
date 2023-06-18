@@ -1,25 +1,13 @@
 'use client';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { redirect } from 'next/navigation';
+import { useContext, useEffect } from 'react';
 
-import { createAxiosJWT } from '@/instances';
 import { UserContent, UserSidebar } from '@/components';
-import { userRequests, recipeRequest } from '@/requests';
+import { UserContext } from '@/contexts/UserContext';
+import { userRequests } from '@/requests';
 
 function UserPage({ params }) {
-    const user = useSelector((state) => state.auth.userData);
-    const axiosJWT = createAxiosJWT(user, useDispatch(), useRouter());
-    const searchParams = useSearchParams();
-    const [page, setPage] = useState(1);
-    const [content, setContent] = useState(searchParams.get('content') || 'My Recipes');
-    const [isLoadingInfo, setIsLoadingInfo] = useState(true);
-    const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
-    const searchedUser = useRef({});
-    const recipes = useRef({
-        saved: [],
-        mine: [],
-    });
+    const { user, axiosJWT, loadingInfo, searchedUser } = useContext(UserContext);
 
     useEffect(() => {
         // if not login
@@ -28,53 +16,19 @@ function UserPage({ params }) {
         }
 
         const fetch = async () => {
-            setIsLoadingInfo(true);
+            loadingInfo.set(true);
             const res = await userRequests.getUserInfo(params.id, user.accessToken, axiosJWT);
             searchedUser.current = res.data;
-            setIsLoadingInfo(false);
+            loadingInfo.set(false);
         };
 
         fetch();
     }, [params.id, user]);
 
-    useEffect(() => {
-        (async () => {
-            setIsLoadingRecipes(true);
-            if (user._id === params.id) {
-                const savedRecipes = await recipeRequest.getSavedRecipes(page, user.accessToken, axiosJWT);
-                recipes.current = {
-                    ...recipes.current,
-                    saved: savedRecipes,
-                };
-            }
-
-            const myRecipes = await recipeRequest.getRecipes(params.id, page, user.accessToken, axiosJWT);
-            recipes.current = {
-                ...recipes.current,
-                mine: myRecipes,
-            };
-
-            setIsLoadingRecipes(false);
-        })();
-    }, [page]);
-
     return (
         <>
-            <UserSidebar
-                content={content}
-                info={searchedUser.current}
-                loading={isLoadingInfo}
-                onChangeContent={setContent}
-            />
-            <UserContent
-                isUser={user?._id === params.id}
-                page={page}
-                onPage={setPage}
-                content={content}
-                isLoading={isLoadingRecipes}
-                userRecipesData={recipes.current.mine}
-                savedRecipesData={recipes.current.saved}
-            />
+            <UserSidebar />
+            <UserContent isUser={user?._id === params.id} paramId={params.id} />
         </>
     );
 }

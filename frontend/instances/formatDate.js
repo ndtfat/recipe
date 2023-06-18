@@ -8,7 +8,7 @@ export default (iosString, slash = false) => {
         const month = (isoDate.getMonth() + 1).toString().padStart(2, '0');
         const year = isoDate.getFullYear().toString();
 
-        formattedDate = `${month}/${day}/${year}`;
+        formattedDate = `${day}/${month}/${year}`;
     } else {
         const options = { month: 'long', day: 'numeric', year: 'numeric' };
         formattedDate = isoDate.toLocaleDateString('en-US', options);

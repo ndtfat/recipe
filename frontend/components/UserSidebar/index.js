@@ -1,57 +1,65 @@
 'use client';
-import { AiFillInfoCircle } from '@react-icons/all-files/ai/AiFillInfoCircle';
-import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
-import { FaUtensilSpoon } from '@react-icons/all-files/fa/FaUtensilSpoon';
-import { useSelector } from 'react-redux';
-import LoaderSpin from '../common/LoaderSpin';
+import { useContext } from 'react';
+import { GoTrashcan } from '@react-icons/all-files/go/GoTrashcan';
+import { GiBlackBook } from '@react-icons/all-files/gi/GiBlackBook';
+import { AiOutlineHeart } from '@react-icons/all-files/ai/AiOutlineHeart';
+import { AiOutlineInfoCircle } from '@react-icons/all-files/ai/AiOutlineInfoCircle';
 
 import Item from './Item';
 import Preview from './Preview';
+import { UserContext } from '@/contexts/UserContext';
+import { LoadingWrapper } from '../common';
 
-function UserSidebar({ info, onChangeContent, content, loading }) {
-    const user = useSelector((state) => state.auth.userData);
+function UserSidebar() {
+    const { user, content, loadingInfo, searchedUser } = useContext(UserContext);
 
-    return loading ? (
-        <LoaderSpin />
-    ) : (
-        <div className="">
-            <Preview info={info} />
+    return (
+        <LoadingWrapper loading={loadingInfo.value}>
+            <div>
+                <Preview info={searchedUser.current} />
 
-            {user?._id === info?._id && (
-                <>
-                    <div className="hidden lg:block">
-                        <Item
-                            icon={<AiFillInfoCircle />}
-                            title="Personal Info"
-                            active={content === 'Personal Info'}
-                            onClick={() => onChangeContent('Personal Info')}
-                        />
-                        <Item
-                            icon={<FaUtensilSpoon />}
-                            title="My Recipes"
-                            active={content === 'My Recipes'}
-                            onClick={() => onChangeContent('My Recipes')}
-                        />
-                        <Item
-                            icon={<FaHeart />}
-                            title="Saved Recipes"
-                            active={content === 'Saved Recipes'}
-                            onClick={() => onChangeContent('Saved Recipes')}
-                        />
-                    </div>
+                {user?._id === searchedUser.current?._id && (
+                    <>
+                        <div className="hidden lg:block">
+                            <Item
+                                icon={<AiOutlineInfoCircle />}
+                                title="Personal Info"
+                                active={content.value === 'Personal Info'}
+                                onClick={() => content.set('Personal Info')}
+                            />
+                            <Item
+                                icon={<GiBlackBook />}
+                                title="My Recipes"
+                                active={content.value === 'My Recipes'}
+                                onClick={() => content.set('My Recipes')}
+                            />
+                            <Item
+                                icon={<AiOutlineHeart />}
+                                title="Saved Recipes"
+                                active={content.value === 'Saved Recipes'}
+                                onClick={() => content.set('Saved Recipes')}
+                            />
+                            <Item
+                                icon={<GoTrashcan />}
+                                title="Trash"
+                                active={content.value === 'Trash'}
+                                onClick={() => content.set('Trash')}
+                            />
+                        </div>
 
-                    <select
-                        defaultValue={content}
-                        onChange={(e) => onChangeContent(e.target.value)}
-                        className="block lg:hidden select select-[#ff3130] w-full mb-2"
-                    >
-                        <option>Personal Info</option>
-                        <option>My Recipes</option>
-                        <option>Saved Recipes</option>
-                    </select>
-                </>
-            )}
-        </div>
+                        <select
+                            defaultValue={content.value}
+                            onChange={(e) => content.set(e.target.value)}
+                            className="block lg:hidden select select-[#ff3130] w-full mb-2"
+                        >
+                            <option>Personal Info</option>
+                            <option>My Recipes</option>
+                            <option>Saved Recipes</option>
+                        </select>
+                    </>
+                )}
+            </div>
+        </LoadingWrapper>
     );
 }
 
