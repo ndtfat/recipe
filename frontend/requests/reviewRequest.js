@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 export default {
     async add(body, accessToken, axiosJWT) {
         try {
@@ -5,6 +7,7 @@ export default {
                 headers: { token: 'Bearer ' + accessToken },
             });
 
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -18,6 +21,7 @@ export default {
                 data: { recipeId },
             });
 
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             console.log(err);

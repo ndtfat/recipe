@@ -1,3 +1,6 @@
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
 export default {
     async add(recipeForm, accessToken, axiosJWT) {
         try {
@@ -5,6 +8,7 @@ export default {
                 headers: { token: 'Bearer ' + accessToken },
             });
 
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             return err.response;
@@ -18,6 +22,8 @@ export default {
                 { ids },
                 { headers: { token: 'Bearer ' + accessToken } },
             );
+
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -30,6 +36,8 @@ export default {
                 data: { ids },
                 headers: { token: 'Bearer ' + accessToken },
             });
+
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -43,6 +51,9 @@ export default {
                 { ids },
                 { headers: { token: 'Bearer ' + accessToken } },
             );
+
+            console.log(res.data);
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -51,9 +62,12 @@ export default {
 
     async getRecipes(userId, page, sortBy, accessToken, axiosJWT) {
         try {
-            const res = await axiosJWT.get(process.env.SERVER_URL + `/recipe/${userId}?page=${page}&sortBy=${sortBy}`, {
-                headers: { token: 'Bearer ' + accessToken },
-            });
+            const res = await axiosJWT.get(
+                process.env.SERVER_URL + `/recipe/mine/${userId}?page=${page}&sortBy=${sortBy}`,
+                {
+                    headers: { token: 'Bearer ' + accessToken },
+                },
+            );
 
             return res.data;
         } catch (err) {
@@ -108,5 +122,34 @@ export default {
 
             return res.data;
         } catch (err) {}
+    },
+
+    async getTop1Recipes() {
+        try {
+            const res = await axios.get(process.env.SERVER_URL + '/recipe/top1-each-type');
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async getRecipesOfType(type, page, sortBy) {
+        try {
+            const res = await axios.get(process.env.SERVER_URL + `/recipe/${type}?page=${page}&sortBy=${sortBy}`);
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async search(text, page, sortBy) {
+        try {
+            const res = await axios.get(
+                process.env.SERVER_URL + `/recipe/search?text=${text}&page=${page}&sortBy=${sortBy}`,
+            );
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
     },
 };

@@ -28,17 +28,15 @@ function THead({ isUser, actions }) {
     return (
         <thead>
             <tr className="text-[14px]">
-                <th className="text-center">
-                    {isUser && actions && <ActionButton checkedIds={checkedIds} actions={actions} />}
-                </th>
+                <th>{isUser && actions && <ActionButton checkedIds={checkedIds} actions={actions} />}</th>
                 <th>Title</th>
                 {content.value === 'Saved Recipes' ? <th>Author</th> : <th>Public</th>}
-                <th className="text-center">
+                <th>
                     <p className="flex items-center">
                         Rate <FaSort className="ml-1 cursor-pointer" onClick={() => handleSort('rate')} />
                     </p>
                 </th>
-                <th className="text-center">
+                <th>
                     <p className="flex items-center">
                         Total rated <FaSort className="ml-1 cursor-pointer" onClick={() => handleSort('total_rated')} />
                     </p>

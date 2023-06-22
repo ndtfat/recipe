@@ -1,4 +1,5 @@
 import { authActions } from '@/redux/slices/authSlice';
+import toast from 'react-hot-toast';
 
 export default {
     async updateUserInfo(info, accessToken, dispatch, axiosJWT) {
@@ -6,11 +7,14 @@ export default {
             const res = await axiosJWT.put(process.env.SERVER_URL + '/user/update/info', info, {
                 headers: { token: 'Bearer ' + accessToken },
             });
-            console.log(res.data);
-            dispatch(authActions.updateUserData(res.data.data));
-            return res.data;
+            const data = res.data;
+
+            toast.success(data.message);
+            dispatch(authActions.updateUserData(data.data));
+            return data;
         } catch (err) {
             console.log(err);
+            toast.error(err.response.data.message);
         }
     },
 
@@ -20,9 +24,11 @@ export default {
                 headers: { token: 'Bearer ' + accessToken },
             });
 
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             console.log(err);
+            toast.error(err.response.data.message);
         }
     },
 
@@ -46,6 +52,7 @@ export default {
                 { headers: { token: 'Bearer ' + accessToken } },
             );
 
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -60,6 +67,7 @@ export default {
                 { headers: { token: 'Bearer ' + accessToken } },
             );
 
+            toast.success(res.data.message);
             return res.data;
         } catch (err) {
             console.log(err);

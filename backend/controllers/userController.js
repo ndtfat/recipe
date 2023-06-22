@@ -24,7 +24,7 @@ class UserController {
 
     //[PUT] /user/update/password
     async updatePassword(req, res) {
-        const user = await UserModel.findById(req.user._id);
+        const user = await UserModel.findById(req.user._id).select('+password');
         const isValidPassword = await bcrypt.compare(req.body.current, user.password);
 
         if (isValidPassword) {
@@ -39,7 +39,9 @@ class UserController {
                     return res.status(500).json({ status: 500, message: 'Server Err', err });
                 });
         } else {
-            return res.status(403).json({ status: 403, message: 'Invalid password' });
+            return res
+                .status(403)
+                .json({ status: 403, message: 'Update password unsuccess (current password is incorrect))' });
         }
     }
 

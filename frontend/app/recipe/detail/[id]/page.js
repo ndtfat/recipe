@@ -27,7 +27,6 @@ function Page({ params }) {
             const accessToken = user?.accessToken;
             setIsLoading(true);
             const recipeDetailRes = await recipeRequest.getRecipeDetail(recipeId, accessToken, axiosJWT);
-            const relativeRes = await recipeRequest.getRelativeRecipes(recipeId, accessToken, axiosJWT);
 
             if (recipeDetailRes) {
                 let totalTime;
@@ -50,7 +49,8 @@ function Page({ params }) {
                 });
             }
 
-            if (relativeRes) {
+            if (!recipeDetailRes.deleted) {
+                const relativeRes = await recipeRequest.getRelativeRecipes(recipeId, accessToken, axiosJWT);
                 setRelativeReps(relativeRes.data.slice(0, 8));
             }
 

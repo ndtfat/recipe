@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 import { authActions } from '@/redux/slices/authSlice';
 
 export default {
@@ -10,10 +11,12 @@ export default {
 
             if (data.status === 200) {
                 dispatch(authActions.registerSuccess());
+                toast.success(data.message);
                 router.push('/auth/login');
             } else if (data.status === 403);
         } catch (err) {
             dispatch(authActions.registerFailure(err.response.data.message));
+            toast.success(err.response.data.message);
         }
     },
 
@@ -26,12 +29,15 @@ export default {
             const data = res.data;
 
             if (data.status === 200) {
-                router.push('/');
+                router.back();
+
                 dispatch(authActions.loginSuccess(data.data));
+                toast.success(data.message);
             }
+            return res.data;
         } catch (err) {
-            console.log(err);
             dispatch(authActions.loginFailure(err.response.data.message));
+            toast.error(err.response.data.message);
         }
     },
 
@@ -47,8 +53,10 @@ export default {
             const data = res.data;
 
             if (data.status === 200) {
-                router.push('/auth/login');
                 dispatch(authActions.logoutSuccess());
+
+                toast.success(data.message);
+                router.push('/auth/login');
             }
         } catch (err) {
             console.log(err);
@@ -70,7 +78,6 @@ export default {
             dispatch(authActions.refreshSuccess(res.data.data));
             return res.data;
         } catch (err) {
-            console.log(err);
             dispatch(authActions.refreshFailure(err.response.data.message));
         }
     },

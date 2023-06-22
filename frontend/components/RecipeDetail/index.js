@@ -55,7 +55,7 @@ function RecipeDetail({ data, relativeReps }) {
                         You'll Also Love
                     </h1>
 
-                    <ul className="flex justify-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto gap-4">
+                    <ul className="flex flex-col items-center justify-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto gap-4">
                         {relativeReps.map((recipe) => (
                             <RecipeCard recipe={recipe} key={recipe._id} />
                         ))}

@@ -1,10 +1,18 @@
-import { Header } from '@/components';
+import { Header, TopRecipePreview } from '@/components';
+import { recipeRequest } from '@/requests';
 
-function Home() {
+async function Home() {
+    const top1Recipes = await recipeRequest.getTop1Recipes();
+
     return (
         <div>
             <Header />
-            <h1>HOME PAGE</h1>
+
+            <div className="w-full h-[calc(100vh-110px)] p-[30px]">
+                <main className="h-full flex flex-col items-center justify-center bg-black">
+                    <TopRecipePreview recipes={top1Recipes} />
+                </main>
+            </div>
         </div>
     );
 }

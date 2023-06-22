@@ -1,5 +1,4 @@
 'use client';
-
 import Link from 'next/link';
 import { useState } from 'react';
 import { FiMenu } from '@react-icons/all-files/fi/FiMenu';
@@ -24,14 +23,16 @@ function NavbarIcon() {
 
             {isOpen && (
                 <div className="fixed top-[70px] h-full left-0 w-[300px] flex flex-col bg-white text-black text-[16px] font-medium ">
-                    <h1 className="ml-[50px] mr-[90px] text-[30px] border-b-4 border-primary">Categories</h1>
+                    <h1 className="ml-[20px] mr-[90px] text-[30px] underline underline-offset-4 decoration-primary">
+                        Categories
+                    </h1>
 
-                    <nav className="flex flex-col mt-[20px] ">
+                    <nav className="flex flex-col mt-[10px] ">
                         {categories.map((category) => (
                             <Link
                                 key={category.title}
                                 href={category.href}
-                                className="cursor-pointer w-full flex items-center justify-between pl-[50px] pr-[20px] py-[16px] border-b-[1px] border-[#ccc] hover:bg-slate-200"
+                                className="cursor-pointer w-full flex items-center justify-between pl-[20px] pr-[20px] py-[16px] border-b-[1px] border-[#ccc] hover:bg-slate-200"
                             >
                                 {category.title} <MdKeyboardArrowRight />
                             </Link>

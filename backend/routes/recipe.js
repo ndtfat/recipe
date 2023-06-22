@@ -12,12 +12,19 @@ router.patch('/restore', verifyAccessToken, recipeController.restore);
 
 router.delete('/delete-force', verifyAccessToken, recipeController.forceDelete);
 
+router.get('/top1-each-type', recipeController.getTopRecipes);
+
+router.get('/search', recipeController.search);
+
 router.get('/detail/:id', verifyAccessToken, recipeController.getDetailRecipe);
 
 router.get('/relative/:id', verifyAccessToken, recipeController.getRelativeRecipes);
 
 router.get('/:id/deleted', verifyAccessToken, recipeController.getUserRecipesDeleted);
 
-router.get('/:id', verifyAccessToken, recipeController.getUserRecipes);
+// id --> recipes of id(user)
+router.get('/mine/:id', verifyAccessToken, recipeController.getUserRecipes);
+
+router.get('/:type', recipeController.getRecipesOfType);
 
 module.exports = router;

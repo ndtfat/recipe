@@ -9,7 +9,7 @@ function TRow({ recipe, index, isUser, ...props }) {
 
     return (
         <tr {...props}>
-            <td className="text-center">
+            <td>
                 {isUser ? (
                     <label>
                         <input
@@ -55,8 +55,8 @@ function TRow({ recipe, index, isUser, ...props }) {
                     )}
                 </td>
             )}
-            <td className="text-center">{recipe.rate}</td>
-            <td className="text-center">{recipe.total_rated}</td>
+            <td>{recipe.rate}</td>
+            <td>{recipe.total_rated}</td>
             {content.value !== 'Saved Recipes' && <td>{formatDate(recipe.updatedAt, true)}</td>}
         </tr>
     );

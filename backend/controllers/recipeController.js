@@ -7,7 +7,7 @@ class RecipeController {
         const newRecipe = new RecipeModel({ ...req.body });
         newRecipe
             .save()
-            .then((data) => res.status(200).json({ status: 200, message: 'add recipe successful', recipe: data }))
+            .then((data) => res.status(200).json({ status: 200, message: 'Add recipe successful', recipe: data }))
             .catch((err) => {
                 if (err.name === 'ValidationError')
                     return res.status(403).json({ status: 403, message: 'ValidationError', err: err });
@@ -15,9 +15,38 @@ class RecipeController {
             });
     }
 
-    // [GET] /recipe/:id?page=
+    //[GET] /recipe/search?text=
+    async search(req, res) {
+        let page = Number(req.query.page);
+        const text = req.query.text;
+        const size = 16;
+        const sortByQuery = req.query.sortBy;
+        const [fieldSort, sortBy] = sortByQuery ? sortByQuery.split(' ') : ['createdAt', 'desc'];
+
+        if (!page || page < 1) page = 1;
+        const skip = size * (page - 1);
+
+        const recipes = await RecipeModel.find({ title: { $regex: text, $options: 'i' } })
+            .skip(skip)
+            .limit(size)
+            .populate({ path: 'author', select: 'first_name last_name' })
+            .sort({ [fieldSort]: sortBy });
+
+        if (recipes) {
+            res.status(200).json({
+                status: 200,
+                message: `Get search_results success`,
+                page,
+                total_recipes: recipes.length,
+                total_pages: Math.ceil(recipes.length / size),
+                recipes,
+            });
+        }
+    }
+
+    // [GET] /recipe/mine/:id?page=
     async getUserRecipes(req, res) {
-        const [fieldSort, sortBy] = req.query.sortBy.split(' ');
+        const [fieldSort, sortBy] = req.query.sortBy ? req.query.sortBy.split(' ') : ['updatedAt', 'desc'];
         const id = req.params.id;
         const user = req.user;
         const size = 12;
@@ -55,7 +84,7 @@ class RecipeController {
 
     //[GET] /recipe/saved?page=
     async getSavedRecipes(req, res) {
-        const [fieldSort, sortBy] = req.query.sortBy.split(' ');
+        const [fieldSort, sortBy] = req.query.sortBy ? req.query.sortBy.split(' ') : ['updatedAt', 'desc'];
 
         try {
             const { saved_recipes } = await UserModel.findById(req.user._id, { saved_recipes: { $slice: 1 } })
@@ -88,14 +117,14 @@ class RecipeController {
         const userId = req.user._id;
 
         const user = await UserModel.findById(userId);
-        const recipe = await RecipeModel.find({ _id: recipeId }).populate({
+        const recipe = await RecipeModel.findWithDeleted({ _id: recipeId }).populate({
             path: 'author',
             select: 'first_name last_name',
         });
 
         if (recipe) {
             const isSaved = user.saved_recipes.includes(recipeId);
-            const isUsersRecipe = userId === recipe[0].author.id;
+            const isUsersRecipe = userId === recipe[0].author._id;
 
             return res.json({
                 status: 200,
@@ -133,14 +162,15 @@ class RecipeController {
     //[PATCH] /recipe/delete-soft
     softDelete(req, res) {
         const ids = req.body.ids;
-        RecipeModel.delete({ _id: { $in: ids } }).then((data) => res.json({ message: 'delete success', data }));
+        RecipeModel.delete({ _id: { $in: ids } }).then((data) =>
+            res.json({ message: 'Recipes are moved into trash', data }),
+        );
     }
 
-    //[GET] /recipe/:id/deleted?page=
+    //[GET] /recipe/:id/deleted?sortBy=&page=
     async getUserRecipesDeleted(req, res) {
-        const [fieldSort, sortBy] = req.query.sortBy.split(' ');
+        const [fieldSort, sortBy] = req.query.sortBy ? req.query.sortBy.split(' ') : ['updatedAt', 'desc'];
         const id = req.params.id;
-        const user = req.user;
         const size = 12;
         let page = Number(req.query.page);
 
@@ -171,14 +201,69 @@ class RecipeController {
     restore(req, res) {
         const ids = req.body.ids;
         RecipeModel.updateManyDeleted({ _id: { $in: ids } }, { deleted: false }).then((data) =>
-            res.json({ message: 'restore success', data }),
+            res.json({ message: 'Restore success', data }),
         );
     }
 
     //[DELETE] /recipe/delete-force
     forceDelete(req, res) {
         const ids = req.body.ids;
-        RecipeModel.deleteMany({ _id: { $in: ids } }).then((data) => res.json({ message: 'delete success', data }));
+        RecipeModel.deleteMany({ _id: { $in: ids } }).then((data) => res.json({ message: 'Delete success', data }));
+    }
+
+    //[GET] /recipe/top1-each-type
+    getTopRecipes(req, res) {
+        RecipeModel.aggregate([
+            { $match: { deleted: false, isPublic: true } },
+            { $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'user' } },
+            { $sort: { rate: -1 } },
+            { $group: { _id: '$dishType', recipes: { $push: '$$ROOT' } } },
+            {
+                $project: {
+                    top_one: {
+                        $slice: ['$recipes', 1],
+                    },
+                },
+            },
+        ])
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+    }
+
+    //[GET] /recipe/:type?sortBy
+    async getRecipesOfType(req, res) {
+        let page = Number(req.query.page);
+        const size = 16;
+        const dishType = req.params.type;
+
+        const sortByQuery = req.query.sortBy;
+        const [fieldSort, sortBy] = sortByQuery ? sortByQuery.split(' ') : ['createdAt', 'desc'];
+
+        if (!page || page < 1) page = 1;
+        const skip = size * (page - 1);
+
+        let condition = { dishType, isPublic: true };
+        const types = ['soup', 'drink', 'main dish', 'healthy', 'dessert'];
+        if (dishType === 'other') condition = { dishType: { $not: { $in: types } } };
+
+        const latestRecipes = await RecipeModel.find(condition).sort({ createdAt: 'desc' }).limit(1);
+        const recipes = await RecipeModel.find(condition)
+            .skip(skip)
+            .limit(size)
+            .populate({ path: 'author', select: 'first_name last_name' })
+            .sort({ [fieldSort]: sortBy });
+
+        if (recipes) {
+            res.status(200).json({
+                status: 200,
+                message: `Get ${dishType} success`,
+                page,
+                total_recipes: recipes.length,
+                total_pages: Math.ceil(recipes.length / size),
+                latest: latestRecipes[0],
+                recipes,
+            });
+        }
     }
 }
 

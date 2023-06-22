@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from 'react-hot-toast';
 
 import './globals.css';
 import Providers from '../redux/Providers';
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={inter.className}>
                 <NextTopLoader color="#ff3130" />
+                <Toaster />
                 <Providers>{children}</Providers>
             </body>
         </html>

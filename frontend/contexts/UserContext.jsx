@@ -51,7 +51,7 @@ function UserProvider({ children }) {
     };
 
     const handleRestore = async () => {
-        await recipeRequest.restore(idsRef.current, user.accessToken, axiosJWT);
+        const res = await recipeRequest.restore(idsRef.current, user.accessToken, axiosJWT);
         setContent('My Recipes');
     };
 

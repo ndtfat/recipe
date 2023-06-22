@@ -1,6 +1,6 @@
 function Rating({ rate, onRate, readOnly, size = 'xs', ...props }) {
     return (
-        <div className={`rating rating-${size} flex`}>
+        <div className={`rating ${size === 'sm' ? 'rating-sm' : 'rating-lg'} flex`}>
             <input {...props} type="radio" checked={rate === '0'} className="rating-hidden hidden" readOnly />
             {['1', '2', '3', '4', '5'].map((item) => (
                 <input

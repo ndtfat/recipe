@@ -28,7 +28,7 @@ function AccountMenu() {
     return (
         <>
             {authState.userData ? (
-                <div className="dropdown dropdown-bottom dropdown-end z-10 cursor-pointer">
+                <div className="dropdown dropdown-bottom dropdown-end z-50 cursor-pointer">
                     <label tabIndex={0} className="">
                         <Image
                             priority
@@ -62,8 +62,8 @@ function AccountMenu() {
                 </div>
             ) : (
                 <Link href="/auth/login">
-                    <Button className="px-4 py-2 flex items-center">
-                        Log in <FiLogIn className="ml-[8px] text-[20px]" />
+                    <Button className="px-2 lg:px-4 py-2 flex items-center">
+                        <span className="hidden lg:block mr-[8px]">Log in</span> <FiLogIn className="text-[20px]" />
                     </Button>
                 </Link>
             )}

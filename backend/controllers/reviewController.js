@@ -51,7 +51,7 @@ class reviewController {
 
             ReviewModel.find({})
                 // return data: reamin reviews
-                .then((data) => res.status(200).json({ status: 200, message: 'Delete success', data }))
+                .then((data) => res.status(200).json({ status: 200, message: 'Delete review success', data }))
                 .catch((err) => res.json(err));
         }
     }

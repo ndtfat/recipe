@@ -6,7 +6,7 @@ function Button({ typeBtn = 'default', type = 'button', className = '', disable,
     const classes = useRef({
         default: 'bg-black hover:bg-primary text-white',
         primary: 'bg-primary outline-2 text-white hover:bg-white hover:outline-primary hover:text-primary',
-        outline: 'bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white',
+        outline: 'bg-white outline-2 text-primary hover:outline-white hover:bg-primary hover:text-white',
     });
 
     return (

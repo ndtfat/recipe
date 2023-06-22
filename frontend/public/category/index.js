@@ -6,11 +6,11 @@ import healthy from './healthy.jpg';
 
 export default [
     {
-        param: 'main',
+        param: 'main%20dish',
         title: 'Main Dishes',
         desc: 'Hundreds of main dish recipes. Choose from top-rated comfort food, healthy, and vegetarian options. Find your dinner star now!',
         background: main,
-        href: '/recipe/main',
+        href: '/recipe/main dish',
     },
     {
         param: 'soup',
