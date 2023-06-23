@@ -10,6 +10,8 @@ function UserPage({ params }) {
     const { user, axiosJWT, loadingInfo, searchedUser } = useContext(UserContext);
 
     useEffect(() => {
+        console.log(loadingInfo.value);
+
         // if not login
         if (!user) {
             redirect('/auth/login');
@@ -23,7 +25,7 @@ function UserPage({ params }) {
         };
 
         fetch();
-    }, [params.id, user, axiosJWT, loadingInfo, searchedUser]);
+    }, [params.id, user]);
 
     return (
         <>

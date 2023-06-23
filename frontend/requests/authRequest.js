@@ -29,7 +29,7 @@ export default {
             const data = res.data;
 
             if (data.status === 200) {
-                router.back();
+                router.push('/');
 
                 dispatch(authActions.loginSuccess(data.data));
                 toast.success(data.message);

@@ -18,14 +18,16 @@ class reviewController {
             const addedReview = await review.save();
             await addedReview.populate('author');
 
-            ReviewModel.find({})
+            ReviewModel.find({ for_recipe: req.body.for_recipe })
                 .populate('author')
                 .then((data) =>
                     res.status(200).json({
                         status: 200,
                         message: 'add review success',
                         // data: reviews axcept review just added
-                        data: data.filter((item) => item._id !== addedReview._id),
+                        data: data.filter((item) => {
+                            return item.id !== addedReview.id;
+                        }),
                         addedReview,
                     }),
                 )
@@ -49,7 +51,7 @@ class reviewController {
         if (isRated) {
             await review.deleteOne();
 
-            ReviewModel.find({})
+            ReviewModel.find({ for_recipe: req.body.recipeId })
                 // return data: reamin reviews
                 .then((data) => res.status(200).json({ status: 200, message: 'Delete review success', data }))
                 .catch((err) => res.json(err));

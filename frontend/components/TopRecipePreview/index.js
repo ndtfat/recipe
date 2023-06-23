@@ -29,9 +29,10 @@ function TopRecipePreview({ recipes }) {
         return () => {
             clearInterval(id);
         };
-    }, [recipes]);
+    }, [recipes, index]);
 
     useLayoutEffect(() => {
+        console.log(index);
         setRecipe(recipes[index].top_one[0]);
     }, [index]);
 

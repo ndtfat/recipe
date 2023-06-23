@@ -12,7 +12,6 @@ function ListWithSort({ page, onPage, onSort, response }) {
                 <select
                     value={field}
                     onChange={(e) => setSortBy((prev) => [e.target.value, prev[1]])}
-                    defaultValue="createAt"
                     className="select select-sm select-error mr-1 select-none"
                 >
                     <option>createAt</option>
@@ -23,7 +22,6 @@ function ListWithSort({ page, onPage, onSort, response }) {
                 <select
                     value={by}
                     onChange={(e) => setSortBy((prev) => [prev[0], e.target.value])}
-                    defaultValue="desc"
                     className="select select-sm select-error mr-3 select-none"
                 >
                     <option>desc</option>

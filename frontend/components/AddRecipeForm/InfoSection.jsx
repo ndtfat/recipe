@@ -98,8 +98,8 @@ function Info({ info, dispatch }) {
                         priority
                         alt="add-your-photo"
                         src={downloadURL}
-                        // width={200}
-                        // height={200}
+                        width={200}
+                        height={200}
                         id="image"
                         className="mt-[-12px] w-[150px] h-[150px] md:h-[200px] md:w-[200px] cursor-pointer object-cover"
                     />

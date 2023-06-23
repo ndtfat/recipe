@@ -11,13 +11,13 @@ function UserReview({ review, onDelete }) {
                 {review.author.last_name} {review.author.first_name}
                 {onDelete && (
                     <Modal onConfirm={onDelete} text={'Are you sure about delete your review for this recipe?'}>
-                        <RiDeleteBin6Line />
+                        <RiDeleteBin6Line className="cursor-pointer ml-2 translate-y-1 hover:translate-y-0" />
                     </Modal>
                 )}
             </h3>
 
             <div className="flex items-end mb-2">
-                <Rating rate={review.rate} readOnly />
+                <Rating rate={review.rate} readOnly size="sm" />
 
                 <p className="text-[#a8a8a8] text-[12px] ml-2 translate-y-[5px]">
                     {formatDate(review.updatedAt, true)}

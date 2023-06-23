@@ -28,7 +28,7 @@ function AddRecipeForm() {
         if (user) {
             const res = await recipeRequest.add({ author: user._id, ...state }, user.accessToken, axiosJWT);
             console.log(res);
-            if (res.status === 200) router.push('/user?content=My Recipes');
+            if (res.status === 200) router.push(`/user/${user._id}?content=My Recipes`);
         } else {
             console.log('login please');
         }

@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { UserContext } from '@/contexts/UserContext';
 
 function TRow({ recipe, index, isUser, ...props }) {
-    const { content, checkedIds } = useContext(UserContext);
+    const { content, checkedIds, page } = useContext(UserContext);
 
     return (
         <tr {...props}>

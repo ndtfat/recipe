@@ -18,7 +18,12 @@ function RecipeTable({ content, recipeData, isUser, loading, actions }) {
                 <LoadingWrapper loading={loading}>
                     <tbody>
                         {recipeData.recipes.map((recipe, index) => (
-                            <TRow key={recipe._id} index={index} isUser={isUser} recipe={recipe} />
+                            <TRow
+                                key={recipe._id}
+                                index={12 * (page.value - 1) + 1 + index}
+                                isUser={isUser}
+                                recipe={recipe}
+                            />
                         ))}
                     </tbody>
                 </LoadingWrapper>

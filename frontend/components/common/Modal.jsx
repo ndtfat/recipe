@@ -1,10 +1,7 @@
 function Modal({ onConfirm = () => {}, text, disabled, children }) {
     return (
         <div>
-            <button
-                className="cursor-pointer group-hover:block"
-                onClick={disabled ? null : () => window.my_modal_1.showModal()}
-            >
+            <button className="cursor-pointer" onClick={disabled ? null : () => window.my_modal_1.showModal()}>
                 {children}
             </button>
             <dialog id="my_modal_1" className="modal">

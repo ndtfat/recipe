@@ -10,7 +10,6 @@ import { authActions } from '@/redux/slices/authSlice';
 import authRequest from '@/requests/authRequest';
 
 function Auth({ params }) {
-    const form = params.form;
     const authState = useSelector((state) => state.auth);
     const router = useRouter();
     const dispatch = useDispatch();
@@ -23,13 +22,14 @@ function Auth({ params }) {
     });
 
     const handleSubmit = async (e) => {
+        console.log(params.form);
         e.preventDefault();
 
-        if (form === 'register') {
+        if (params.form === 'register') {
             await authRequest.register(inputs, router, dispatch);
         }
 
-        if (form === 'login') {
+        if (params.form === 'login') {
             await authRequest.login(
                 {
                     username: inputs.username,
@@ -48,11 +48,11 @@ function Auth({ params }) {
         >
             <header>
                 <h1 className="inline-block text-[36px] md:text-[50px] font-medium mb-[40px] border-b-4 border-white">
-                    {form === 'login' ? 'Sign in' : 'Sign up'}
+                    {params.form === 'login' ? 'Sign in' : 'Sign up'}
                 </h1>
             </header>
 
-            {form === 'register' && (
+            {params.form === 'register' && (
                 <div className="flex justify-between mb-[20px]">
                     <div className="mr-3">
                         <Input
@@ -110,7 +110,7 @@ function Auth({ params }) {
                     })
                 }
             />
-            {form === 'register' && (
+            {params.form === 'register' && (
                 <Input
                     required
                     mb={40}
@@ -135,14 +135,14 @@ function Auth({ params }) {
                 type="submit"
                 className="duration-300 text-[20px] font-medium bg-[#1a1a1a] py-[10px] rounded-full border-2 border-[#1a1a1a] hover:bg-transparent hover:text-[#1a1a1a]"
             >
-                {form === 'login' ? 'Sign in' : 'Sign up'}
+                {params.form === 'login' ? 'Sign in' : 'Sign up'}
             </button>
             <Link
                 onClick={() => dispatch(authActions.deleteMessage())}
-                href={form === 'login' ? '/auth/register' : 'auth/login'}
+                href={params.form === 'login' ? '/auth/register' : 'auth/login'}
                 className="duration-300 text-center text-[14px] md:text-[16px] mt-[20px] underline cursor-pointer hover:text-[#1a1a1a]"
             >
-                {form === 'login' ? 'Do not have account? Sign up' : 'Have account? Sign in'}
+                {params.form === 'login' ? 'Do not have account? Sign up' : 'Have account? Sign in'}
             </Link>
         </form>
     );

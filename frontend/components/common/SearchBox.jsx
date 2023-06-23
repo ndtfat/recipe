@@ -74,7 +74,8 @@ function SearchBox() {
                     </Link>
                 </ul>
             ) : (
-                value && (
+                value &&
+                loading && (
                     <p className="absolute left-0 top-[calc(100%+4px)] w-full font-bold bg-white text-[#b1b1b1] px-3 py-2 shadow-md">
                         Sorry. There is no recipe like the one you want.
                     </p>

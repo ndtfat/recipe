@@ -40,7 +40,7 @@ function RecipeDetail({ data, relativeReps }) {
 
                 <List title="Directions" list={data.steps} />
 
-                <div className="mt-8">
+                <div className="my-8">
                     <h1 className="font-bold text-[40px]">{data.note.title}</h1>
                     <p>{data.note.content}</p>
                 </div>

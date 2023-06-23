@@ -49,14 +49,12 @@ function Page({ params }) {
                 });
             }
 
-            if (!recipeDetailRes.deleted) {
-                const relativeRes = await recipeRequest.getRelativeRecipes(recipeId, accessToken, axiosJWT);
-                setRelativeReps(relativeRes.data.slice(0, 8));
-            }
+            const relativeRes = await recipeRequest.getRelativeRecipes(recipeId, accessToken, axiosJWT);
+            setRelativeReps(relativeRes.data.slice(0, 8));
 
             setIsLoading(false);
         })();
-    }, [params.id, axiosJWT, user]);
+    }, [params.id]);
 
     return isLoading ? <LoaderSpin /> : <RecipeDetail data={recipe} relativeReps={relativeReps} />;
 }

@@ -33,7 +33,7 @@ function Review({ recipe }) {
             setReviews(reviewsRes.data);
             setIsLoading(false);
         })();
-    }, [recipe, user, axiosJWT]);
+    }, [recipe]);
 
     const handleSubmitReview = async (e) => {
         e.preventDefault();
