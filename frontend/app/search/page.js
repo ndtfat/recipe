@@ -26,7 +26,6 @@ function SearchPage() {
         })();
     }, [text, page, sort]);
 
-    /* eslint react/no-unescaped-entities */
     return (
         <div>
             <Header />
