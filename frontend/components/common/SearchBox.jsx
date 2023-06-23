@@ -8,6 +8,7 @@ import useDebounce from '@/hooks/useDebounce';
 import { recipeRequest } from '@/requests';
 
 function SearchBox() {
+    const [inputFocus, setInputFocus] = useState(false);
     const [value, setValue] = useState('');
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -34,6 +35,8 @@ function SearchBox() {
                         type="text"
                         value={value}
                         placeholder="search your recipe..."
+                        onBlur={() => setInputFocus(false)}
+                        onFocus={() => setInputFocus(true)}
                         onChange={(e) => setValue(e.target.value)}
                         className="cursor-text w-full text-black py-[7px] outline-none pl-4"
                     />
@@ -57,7 +60,7 @@ function SearchBox() {
                 </Link>
             </div>
 
-            {results.length > 0 ? (
+            {inputFocus && results.length > 0 ? (
                 <ul className="w-full absolute left-0 top-[calc(100%+4px)]">
                     {results.map((item) => (
                         <Link key={item._id} href={`/recipe/detail/${item._id}`}>
@@ -74,6 +77,7 @@ function SearchBox() {
                     </Link>
                 </ul>
             ) : (
+                inputFocus &&
                 value &&
                 loading && (
                     <p className="absolute left-0 top-[calc(100%+4px)] w-full font-bold bg-white text-[#b1b1b1] px-3 py-2 shadow-md">

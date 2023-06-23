@@ -35,6 +35,8 @@ function SearchPage() {
                     <SearchBox />
                 </div>
 
+                <h1 className="mt-7 font-bold text-[30px]">Search for "{text}"</h1>
+
                 {response && <ListWithSort page={page} onPage={setPage} onSort={handleSort} response={response} />}
             </div>
         </div>
