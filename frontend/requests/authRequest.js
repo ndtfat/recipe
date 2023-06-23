@@ -68,7 +68,7 @@ export default {
         dispatch(authActions.refreshStart());
         try {
             const res = await axios.post(
-                'http://localhost:5000/auth/refresh-access-token',
+                process.env.SERVER_URL + '/auth/refresh-access-token',
                 {},
                 {
                     withCredentials: true,
