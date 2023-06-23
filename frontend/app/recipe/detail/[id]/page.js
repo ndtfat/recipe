@@ -56,7 +56,7 @@ function Page({ params }) {
 
             setIsLoading(false);
         })();
-    }, [params.id]);
+    }, [params.id, axiosJWT, user]);
 
     return isLoading ? <LoaderSpin /> : <RecipeDetail data={recipe} relativeReps={relativeReps} />;
 }

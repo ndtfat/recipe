@@ -17,7 +17,7 @@ function TimeSection({ dispatch, times }) {
         } else {
             return `${cookingTime.value} ${cookingTime.measure} and ${prepTime.value} ${prepTime.measure}`;
         }
-    });
+    }, [prepTime, cookingTime]);
 
     return (
         <div>

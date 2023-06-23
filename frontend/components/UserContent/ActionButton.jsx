@@ -14,7 +14,7 @@ function ActionButton({ checkedIds, actions }) {
 
     useEffect(() => {
         if (!actions[actionIndex]) setActionIndex(0);
-    });
+    }, [actionIndex, actions]);
 
     return (
         <div className="flex items-center">

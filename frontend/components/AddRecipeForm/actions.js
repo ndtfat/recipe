@@ -1,4 +1,4 @@
-export default {
+const actions = {
     setTitle(payload) {
         return {
             type: 'SET_TITLE',
@@ -68,3 +68,5 @@ export default {
         };
     },
 };
+
+export default actions;

@@ -19,7 +19,7 @@ function Category({ params }) {
             const res = await recipeRequest.getRecipesOfType(params.category, page, sort);
             setResponse(res);
         })();
-    }, [page, sort]);
+    }, [params.category, page, sort]);
 
     const handleSort = (field, by) => {
         setSort(`${field} ${by}`);

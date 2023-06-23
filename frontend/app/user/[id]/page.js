@@ -23,7 +23,7 @@ function UserPage({ params }) {
         };
 
         fetch();
-    }, [params.id, user]);
+    }, [params.id, user, axiosJWT, loadingInfo, searchedUser]);
 
     return (
         <>

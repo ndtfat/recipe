@@ -11,8 +11,6 @@ function TopRecipePreview({ recipes }) {
     const [[index, direction], setIndex] = useState([0, 1]);
     const [recipe, setRecipe] = useState(recipes[index].top_one[0]);
 
-    console.log(index, recipe.title);
-
     const handlePrev = () => {
         setIndex(() => (index === 0 ? [recipes.length - 1, -1] : [index - 1, -1]));
     };
@@ -31,7 +29,7 @@ function TopRecipePreview({ recipes }) {
         return () => {
             clearInterval(id);
         };
-    });
+    }, [recipes]);
 
     useLayoutEffect(() => {
         setRecipe(recipes[index].top_one[0]);

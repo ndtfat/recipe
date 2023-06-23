@@ -19,7 +19,7 @@ function DragList({ textarea = false, placeholder = 'placeholder', list = [], di
 
     useEffect(() => {
         dispatch(onSetList(localList));
-    }, [localList]);
+    }, [localList, dispatch, onSetList]);
 
     const handleAddIngredient = () => {
         setLocalList((prev) => {

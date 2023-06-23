@@ -9,6 +9,7 @@ import { recipeRequest } from '@/requests';
 
 function SearchPage() {
     const searchParams = useSearchParams();
+    const text = searchParams.get('text');
 
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState('createdAt desc');
@@ -20,10 +21,10 @@ function SearchPage() {
 
     useEffect(() => {
         (async () => {
-            const res = await recipeRequest.search(searchParams.get('text'), page, sort);
+            const res = await recipeRequest.search(text, page, sort);
             setResponse(res);
         })();
-    }, [searchParams.get('text'), page, sort]);
+    }, [text, page, sort]);
 
     return (
         <div>

@@ -45,7 +45,7 @@ function InfoContent() {
         } else {
             setIsChangeInfo(false);
         }
-    }, [wantCHangePassword, userInfo]);
+    }, [wantCHangePassword, userInfo, user]);
 
     const handleSaveChange = async (e) => {
         e.preventDefault();

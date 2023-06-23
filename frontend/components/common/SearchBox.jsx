@@ -60,7 +60,7 @@ function SearchBox() {
             {results.length > 0 ? (
                 <ul className="w-full absolute left-0 top-[calc(100%+4px)]">
                     {results.map((item) => (
-                        <Link href={`/recipe/detail/${item._id}`}>
+                        <Link key={item._id} href={`/recipe/detail/${item._id}`}>
                             <p className="shadow-md duration-300 cursor-pointer w-full flex justify-between items-center font-bold bg-white hover:bg-secondary text-black px-3 py-2 mb-1">
                                 <span className="ellipsis">{item.title}</span>
                                 <span className="bg-black text-white whitespace-nowrap px-2 py-1">{item.dishType}</span>

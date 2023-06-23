@@ -49,7 +49,7 @@ function Info({ info, dispatch }) {
                 },
             );
         }
-    }, [imageFile]);
+    }, [imageFile, dispatch]);
 
     return (
         <div className="flex justify-between items-start">

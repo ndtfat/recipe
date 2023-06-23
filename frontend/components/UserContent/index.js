@@ -22,7 +22,7 @@ function UserContent({ isUser, paramId }) {
     useLayoutEffect(() => {
         page.set(1);
         checkedIds.set([]);
-    }, [content.value]);
+    }, [content.value, checkedIds, page]);
 
     useLayoutEffect(() => {
         (async () => {
@@ -57,7 +57,7 @@ function UserContent({ isUser, paramId }) {
             recipes.set(recipesData);
             loadingRecipes.set(false);
         })();
-    }, [content.value, page.value, sort.value]);
+    }, [content.value, page.value, sort.value, axiosJWT, isUser, loadingRecipes, paramId, recipes]);
 
     useLayoutEffect(() => {
         if (content.value === 'Personal Info' && isUser) {
@@ -121,7 +121,7 @@ function UserContent({ isUser, paramId }) {
                 />,
             );
         }
-    }, [content.value, recipes.value, loadingRecipes.value]);
+    }, [content.value, recipes.value, loadingRecipes.value, actions, isUser]);
 
     return (
         <div className="w-full lg:ml-8 bg-white px-7 py-5">

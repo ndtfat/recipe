@@ -52,7 +52,7 @@ function RecipeDetail({ data, relativeReps }) {
                 <div className="mt-8">
                     <h1 className="mb-4 font-bold text-[40px] flex items-center">
                         <GiHotMeal className="mr-2 translate-y-[-6px]" color="#ff3130" />
-                        You'll Also Love
+                        You will Also Love
                     </h1>
 
                     <ul className="flex flex-col items-center justify-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto gap-4">
