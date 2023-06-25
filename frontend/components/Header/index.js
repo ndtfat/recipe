@@ -14,7 +14,7 @@ function Header() {
     const pathName = usePathname();
 
     return (
-        <div className="lg:px-[50px] bg-ưhite text-white shadow-md pb-2">
+        <div className="lg:px-[50px] bg-white text-white shadow-xl pb-2">
             <div className="w-full h-[70px] flex justify-between items-center px-3">
                 <NavbarIcon />
 

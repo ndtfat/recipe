@@ -9,7 +9,7 @@ async function Home() {
             <Header />
 
             <div className="w-full h-[calc(100vh-110px)] p-[30px]">
-                <main className="h-full flex flex-col items-center justify-center bg-black">
+                <main className="h-full flex flex-col items-center justify-center bg-black shadow-xl">
                     <TopRecipePreview recipes={top1Recipes} />
                 </main>
             </div>

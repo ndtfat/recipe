@@ -44,10 +44,10 @@ function Auth({ params }) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="z-10 w-2/3 max-w-[450px] p-[40px] bg-white/30 backdrop-blur-md flex flex-col justify-center rounded-md text-white"
+            className="z-10 w-2/3 max-w-[450px] p-[40px] flex flex-col justify-center shadow-lg rounded-md bg-white"
         >
             <header>
-                <h1 className="inline-block text-[36px] md:text-[50px] font-medium mb-[40px] border-b-4 border-white">
+                <h1 className="inline-block text-[36px] md:text-[50px] font-medium mb-[40px] underline underline-offset-2 decoration-primary">
                     {params.form === 'login' ? 'Sign in' : 'Sign up'}
                 </h1>
             </header>
@@ -58,8 +58,7 @@ function Auth({ params }) {
                         <Input
                             required
                             typeInput={1}
-                            placeholder="Your first name..."
-                            label={'First name'}
+                            placeholder="First name"
                             value={inputs.last_name}
                             onChange={(e) =>
                                 setInputs((prev) => {
@@ -71,8 +70,7 @@ function Auth({ params }) {
                     <Input
                         required
                         typeInput={1}
-                        placeholder="Your last name..."
-                        label={'Last name'}
+                        placeholder="Last name"
                         value={inputs.first_name}
                         onChange={(e) =>
                             setInputs((prev) => {
@@ -87,8 +85,7 @@ function Auth({ params }) {
                 required
                 mb={40}
                 typeInput={1}
-                placeholder="Your username..."
-                label={'Username'}
+                placeholder="Username"
                 value={inputs.username}
                 onChange={(e) =>
                     setInputs((prev) => {
@@ -100,9 +97,8 @@ function Auth({ params }) {
                 required
                 mb={40}
                 typeInput={1}
-                label={'Password'}
                 type="password"
-                placeholder="Your password..."
+                placeholder="Password"
                 value={inputs.password}
                 onChange={(e) =>
                     setInputs((prev) => {
@@ -115,8 +111,7 @@ function Auth({ params }) {
                     required
                     mb={40}
                     typeInput={1}
-                    placeholder="Your email..."
-                    label={'Email'}
+                    placeholder="Email"
                     type="email"
                     value={inputs.email}
                     onChange={(e) =>
@@ -133,14 +128,14 @@ function Auth({ params }) {
 
             <button
                 type="submit"
-                className="duration-300 text-[20px] font-medium bg-[#1a1a1a] py-[10px] rounded-full border-2 border-[#1a1a1a] hover:bg-transparent hover:text-[#1a1a1a]"
+                className="duration-300 text-[20px] font-medium bg-primary text-white py-[10px] rounded-full border-2 border-primary hover:bg-transparent hover:text-primary"
             >
                 {params.form === 'login' ? 'Sign in' : 'Sign up'}
             </button>
             <Link
                 onClick={() => dispatch(authActions.deleteMessage())}
                 href={params.form === 'login' ? '/auth/register' : 'auth/login'}
-                className="duration-300 text-center text-[14px] md:text-[16px] mt-[20px] underline cursor-pointer hover:text-[#1a1a1a]"
+                className="duration-300 text-center text-[14px] md:text-[16px] mt-[20px] underline cursor-pointer hover:text-black"
             >
                 {params.form === 'login' ? 'Do not have account? Sign up' : 'Have account? Sign in'}
             </Link>

@@ -14,9 +14,8 @@ function ListWithSort({ page, onPage, onSort, response }) {
                     onChange={(e) => setSortBy((prev) => [e.target.value, prev[1]])}
                     className="select select-sm select-error mr-1 select-none"
                 >
-                    <option>createAt</option>
-                    <option>updatedAt</option>
-                    <option>rate</option>
+                    <option value="updatedAt">Update date</option>
+                    <option value="rate">Rate</option>
                 </select>
 
                 <select
@@ -24,8 +23,8 @@ function ListWithSort({ page, onPage, onSort, response }) {
                     onChange={(e) => setSortBy((prev) => [prev[0], e.target.value])}
                     className="select select-sm select-error mr-3 select-none"
                 >
-                    <option>desc</option>
-                    <option>asc</option>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
                 </select>
 
                 <button onClick={() => onSort(field, by)} className="btn btn-sm btn-outline btn-error">

@@ -55,7 +55,7 @@ function TRow({ recipe, index, isUser, ...props }) {
                     )}
                 </td>
             )}
-            <td>{recipe.rate}</td>
+            <td>{recipe.rate.toFixed(1)}</td>
             <td>{recipe.total_rated}</td>
             {content.value !== 'Saved Recipes' && <td>{formatDate(recipe.updatedAt, true)}</td>}
         </tr>

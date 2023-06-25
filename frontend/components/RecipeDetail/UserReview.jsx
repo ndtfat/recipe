@@ -17,7 +17,7 @@ function UserReview({ review, onDelete }) {
             </h3>
 
             <div className="flex items-end mb-2">
-                <Rating rate={review.rate} readOnly size="sm" />
+                <Rating rate={`${Math.ceil(review.rate)}`} readOnly size="sm" />
 
                 <p className="text-[#a8a8a8] text-[12px] ml-2 translate-y-[5px]">
                     {formatDate(review.updatedAt, true)}

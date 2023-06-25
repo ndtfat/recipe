@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import Rating from './Rating';
+import { formatDate } from '@/instances';
 
 function RecipeCard({ recipe, ...props }) {
     return (
@@ -13,8 +14,9 @@ function RecipeCard({ recipe, ...props }) {
                 <img alt={recipe.title} src={recipe.imgURL} className="h-full w-full object-cover" />
             </header>
 
-            <div className="h-[130px] flex flex-col justify-between bg-secondary p-3">
+            <div className="h-[146px] flex flex-col justify-between bg-secondary p-3">
                 <div>
+                    <p className="text-[14px] text-[#7f7f7f] mb-[-4px]">{formatDate(recipe.updatedAt)}</p>
                     <h1 className="font-bold text-[26px] ellipsis">{recipe.title}</h1>
                     <h4 className="text-[14px] font-bold">
                         <span className="font-normal text-[#7f7f7f]">by</span> {recipe.author.last_name}{' '}

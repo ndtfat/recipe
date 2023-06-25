@@ -32,7 +32,6 @@ function TopRecipePreview({ recipes }) {
     }, [recipes, index]);
 
     useLayoutEffect(() => {
-        console.log(index);
         setRecipe(recipes[index].top_one[0]);
     }, [index]);
 
@@ -61,7 +60,7 @@ function TopRecipePreview({ recipes }) {
                                 <div className="translate-y-[-2px]">
                                     <Rating rate={`${Math.ceil(recipe.rate)}`} readOnly size="sm" />
                                 </div>
-                                <span className="ml-2">{recipe.rate}</span>
+                                <span className="ml-2">{recipe.rate.toFixed(1)}</span>
                                 <span className="ml-1">({recipe.total_rated})</span>
                             </span>
 

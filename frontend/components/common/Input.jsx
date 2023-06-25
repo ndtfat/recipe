@@ -1,7 +1,7 @@
 const types = {
     1: {
-        label: 'text-[16px] text-white/80 mb-[14px]',
-        input: 'text-[20px] border-b-[1px] mt-[4px] border-white focus:border-white invalid:border-white/30 ',
+        label: 'text-[16px] mb-[14px]',
+        input: 'text-[20px] px-3 py-1 border-b-[1px] mt-[4px] border-primary focus:bg-[#edb2b273]',
     },
     2: {
         label: 'text-[16px] font-bold mb-[10px]',
@@ -11,7 +11,7 @@ const types = {
 
 function Input({ textarea = false, typeInput = 1, label, mb = 20, disable, ...props }) {
     return (
-        <div className={`mb-[${mb}px] w-full`}>
+        <div className={`mb-[${mb}px] w-full decoration-[#a41c1c]`}>
             {label && (
                 <label htmlFor={label} className={types[typeInput].label}>
                     {label}

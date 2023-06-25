@@ -15,7 +15,7 @@ function Review({ recipe }) {
 
     const [isLoading, setIsLoading] = useState(false);
     const [loadingReviews, setLoadingReviews] = useState(false);
-    const [rate, setRate] = useState('0');
+    const [rate, setRate] = useState('1');
     const [reviews, setReviews] = useState([]);
     const [userReview, setUserReview] = useState('');
     const [isReviewed, setIsReviewed] = useState(false);
