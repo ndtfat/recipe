@@ -5,16 +5,16 @@ A recipe website that allows users to create, share, and manage cooking recipes.
 # Overview
 
 Home page is constantly updated hot dishes.
-![HOMEPAGE](/readme-images/home-page.jpg)
+![HOMEPAGE](readme-images/home-page.jpg)
 
 Categorize dishes and update the latest ones.
-![HOMEPAGE](/readme-images/category-page.jpg)
+![HOMEPAGE](readme-images/category-page.jpg)
 
 User page manages user 's information and recipes.
-![HOMEPAGE](/readme-images/user-page.jpg)
+![HOMEPAGE](readme-images/user-page.jpg)
 
 Search page for recipes related to user search.
-![HOMEPAGE](/readme-images/search-page.jpg)
+![HOMEPAGE](readme-images/search-page.jpg)
 
 # Features
 
