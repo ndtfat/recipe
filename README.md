@@ -8,13 +8,13 @@ Home page is constantly updated hot dishes.
 ![HOMEPAGE](readme-images/home-page.jpg)
 
 Categorize dishes and update the latest ones.
-![HOMEPAGE](readme-images/category-page.jpg)
+![CATEGORY](readme-images/category-page.jpg)
 
 User page manages user 's information and recipes.
-![HOMEPAGE](readme-images/user-page.jpg)
+![USERPAGE](readme-images/user-page.jpg)
 
 Search page for recipes related to user search.
-![HOMEPAGE](readme-images/search-page.jpg)
+![SEARCHPAGE](readme-images/search-page.jpg)
 
 # Features
 
