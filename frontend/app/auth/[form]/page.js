@@ -1,9 +1,11 @@
 'use client';
 
+import Link from 'next/link';
+import { VscSignIn } from '@react-icons/all-files/vsc/VscSignIn';
+import { IoMdCreate } from '@react-icons/all-files/io/IoMdCreate';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import Link from 'next/link';
 
 import { Input } from '@/components/common';
 import { authActions } from '@/redux/slices/authSlice';
@@ -47,7 +49,8 @@ function Auth({ params }) {
             className="z-10 w-2/3 max-w-[450px] p-[40px] flex flex-col justify-center shadow-lg rounded-md bg-white"
         >
             <header>
-                <h1 className="inline-block text-[36px] md:text-[50px] font-medium mb-[40px] underline underline-offset-2 decoration-primary">
+                <h1 className="flex items-center text-[36px] md:text-[50px] font-medium mb-[40px]">
+                    {params.form === 'login' ? <VscSignIn className="mr-2" /> : <IoMdCreate className="mr-2" />}
                     {params.form === 'login' ? 'Sign in' : 'Sign up'}
                 </h1>
             </header>
@@ -122,10 +125,6 @@ function Auth({ params }) {
                 />
             )}
 
-            {authState.error && (
-                <span className="text-center mt-[-10px] mb-[20px] bg-red-600">{authState.message}</span>
-            )}
-
             <button
                 type="submit"
                 className="duration-300 text-[20px] font-medium bg-primary text-white py-[10px] rounded-full border-2 border-primary hover:bg-transparent hover:text-primary"
@@ -137,7 +136,7 @@ function Auth({ params }) {
                 href={params.form === 'login' ? '/auth/register' : 'auth/login'}
                 className="duration-300 text-center text-[14px] md:text-[16px] mt-[20px] underline cursor-pointer hover:text-black"
             >
-                {params.form === 'login' ? 'Do not have account? Sign up' : 'Have account? Sign in'}
+                {params.form === 'login' ? "You don't have an account? Sign up" : 'You have an account? Sign in'}
             </Link>
         </form>
     );
