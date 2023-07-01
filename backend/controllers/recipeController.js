@@ -214,7 +214,13 @@ class RecipeController {
     //[GET] /recipe/top1-each-type
     getTopRecipes(req, res) {
         RecipeModel.aggregate([
-            { $match: { deleted: false, isPublic: true } },
+            {
+                $match: {
+                    deleted: false,
+                    isPublic: true,
+                    dishType: { $in: ['main dish', 'dessert', 'drink', 'healthy', 'soup'] },
+                },
+            },
             { $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'user' } },
             { $sort: { rate: -1 } },
             { $group: { _id: '$dishType', recipes: { $push: '$$ROOT' } } },
