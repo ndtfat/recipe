@@ -55,6 +55,7 @@ function UserSidebar() {
                             <option>Personal Info</option>
                             <option>My Recipes</option>
                             <option>Saved Recipes</option>
+                            <option>Trash</option>
                         </select>
                     </>
                 )}

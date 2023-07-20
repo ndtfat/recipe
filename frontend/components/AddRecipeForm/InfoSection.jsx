@@ -29,7 +29,7 @@ function Info({ info, dispatch }) {
 
     useEffect(() => {
         if (imageFile) {
-            const storageRef = ref(storage, `images/${imageFile.name}}`);
+            const storageRef = ref(storage, `images/${imageFile.name}`);
             const uploadFile = uploadBytesResumable(storageRef, imageFile);
 
             uploadFile.on(
